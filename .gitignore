@@ -4,9 +4,13 @@
 .pnp.js
 .yarn/install-state.gz
 
-# testing & scratch
-/coverage
+# skills & external reference repos
+/skills
+/.kilo
 /scratch
+
+# testing
+/coverage
 qa-*.png
 .chrome-*
 .edge-*
@@ -18,7 +22,9 @@ qa-*.png
 # production
 /build
 
-# misc
+# stray files
+ChatGPT Image*.png
+*.png.bak
 .DS_Store
 *.pem
 
