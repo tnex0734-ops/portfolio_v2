@@ -3,6 +3,7 @@ export const navItems = [
   { label: "Tools", href: "#tools" },
   { label: "Products", href: "#products" },
   { label: "UX / UI", href: "#ux-ui" },
+  { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -19,36 +20,101 @@ export const tools = [
   "Replit",
 ];
 
-export const aiProjects = [
+export interface AiProject {
+  id: string;
+  title: string;
+  dockLabel: string;
+  tagline: string;
+  category: string;
+  description: string;
+  tools: string[];
+  link: string;
+  icon: string;
+  screenshot: string;
+  status?: string;
+  highlights: string[];
+}
+
+export const aiProjects: AiProject[] = [
   {
+    id: "devatlas",
     title: "Dev Atlas",
+    dockLabel: "Dev Atlas",
+    tagline: "Developer OS & Second Brain",
+    category: "Developer Workspace",
     description:
       "Second-brain operating system and workspace for developers with role-based dashboard, progress tracking, and curated roadmaps.",
     tools: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
     link: "https://devatlas-lake.vercel.app/?role=all&section=overview",
+    icon: "/projects/devatlas.png",
+    screenshot: "/projects/devatlas_screenshot.jpg",
+    status: "Live Project",
+    highlights: [
+      "Role-based developer dashboard",
+      "Interactive curated learning roadmaps",
+      "Real-time progress milestone tracking",
+      "Vercel edge performance pipeline",
+    ],
   },
   {
+    id: "abtalks",
     title: "Abtalks Landing Redesign",
+    dockLabel: "AB Talks",
+    tagline: "High-Impact Brutalist Editorial",
+    category: "Landing Page Redesign",
     description:
       "Editorial landing page redesign for Abtalks featuring bold brutalist typography, dynamic motion, and conversion-focused layout.",
     tools: ["React", "Motion", "Tailwind", "Vercel"],
     link: "https://abtalks-redesign-rust.vercel.app/",
+    icon: "/projects/abtalks.png",
+    screenshot: "/projects/abtalks_screenshot.jpg",
+    status: "Live Project",
+    highlights: [
+      "Custom fluid brutalist typography",
+      "Kinetic Framer Motion scroll choreography",
+      "Conversion-optimized responsive layout",
+      "Zero-latency edge distribution",
+    ],
   },
   {
+    id: "creonix",
     title: "Creonix",
+    dockLabel: "Creonix",
+    tagline: "AI Illustration Studio for Designers",
+    category: "Generative AI Platform",
     description:
       "AI illustration generator that creates styled visuals for designers using Gemini API.",
     tools: ["Lovable", "Gemini API"],
     link: "https://creonix-art-creator.lovable.app",
+    icon: "/projects/creonix.png",
+    screenshot: "/projects/creonix_screenshot.jpg",
     status: "Under Progress",
+    highlights: [
+      "Gemini API multimodal image synthesis",
+      "Custom-tailored illustration style presets",
+      "Designer workflow prompt engineering",
+      "Rapid export pipeline in SVG/PNG",
+    ],
   },
   {
+    id: "prepblitz",
     title: "PrepBlitz",
+    dockLabel: "PrepBlitz",
+    tagline: "Gen Z Exam Prep & Revision Experience",
+    category: "EdTech Mobile Web App",
     description:
       "Cross-platform exam preparation experience for Gen Z students with progress tracking.",
     tools: ["Lovable"],
     link: "https://id-preview--c1e34932-22ce-4676-86af-7f1ab15467b7.lovable.app",
+    icon: "/projects/prepblitz.png",
+    screenshot: "/projects/prepblitz_screenshot.png",
     status: "Under Progress",
+    highlights: [
+      "Bite-sized micro-learning test modules",
+      "Gamified progress tracking & streaks",
+      "Adaptive question revision flows",
+      "Mobile-first responsive UX architecture",
+    ],
   },
 ];
 
@@ -133,26 +199,57 @@ export const uxUiProjects: UxUiProject[] = [
 
 export const figmaProjects = uxUiProjects;
 
-export const experience = [
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  date: string;
+  tagline?: string;
+  focus?: string;
+  color: string;
+  textColor: string;
+  strapColor: string;
+}
+
+export const experience: ExperienceItem[] = [
   {
-    company: "UIUX Hyderabad",
-    role: "Core Member",
-    date: "May 2026 - Present",
-  },
-  {
-    company: "The Regiment",
-    role: "UX/UI Designer",
-    date: "Jun 2026 - Sep 2026",
+    company: "RamScript Private Limited",
+    role: "UI/UX Intern",
+    date: "Jan 2026 - Feb 2026",
+    tagline: "Product Interface & Prototyping",
+    focus: "Design Systems & User Flows",
+    color: "#18181b",
+    textColor: "#f4f4f5",
+    strapColor: "#e52424",
   },
   {
     company: "Acquiq",
     role: "User Experience Designer",
     date: "May 2026 - Jul 2026",
+    tagline: "AI Hiring Infrastructure",
+    focus: "Recruiter Experience & Heuristics",
+    color: "#1e3a8a",
+    textColor: "#eff6ff",
+    strapColor: "#ffffff",
   },
   {
-    company: "RamScript Private Limited",
-    role: "UX/UI Designer",
-    date: "Jan 2026 - Feb 2026",
+    company: "The Regiment",
+    role: "UI/UX Design Intern",
+    date: "Jun 2026 - Sep 2026",
+    tagline: "Design Operations & Product",
+    focus: "Mobile & Web Interface Architecture",
+    color: "#7c2d12",
+    textColor: "#fff7ed",
+    strapColor: "#fed7aa",
+  },
+  {
+    company: "UI/UX Hyderabad",
+    role: "Core Member",
+    date: "May 2026 - Present",
+    tagline: "Design Guild & Community Leadership",
+    focus: "Curating Meetups, Sprints & Mentorship",
+    color: "#e52424",
+    textColor: "#ffffff",
+    strapColor: "#111111",
   },
 ];
 
@@ -171,5 +268,106 @@ export const contactLinks = [
     label: "Phone",
     value: "+91 8919237170",
     href: "tel:+918919237170",
+  },
+];
+
+
+export interface AchievementMetric {
+  value: string;
+  label: string;
+}
+
+export interface Achievement {
+  id: string;
+  tag: string;
+  host: string;
+  title: string;
+  headline: string;
+  award: string;
+  metrics: AchievementMetric[];
+  description: string;
+  image: string;
+  ctaText: string;
+  date?: string;
+  badge?: string;
+  accentColor: string;
+}
+
+export const achievements: Achievement[] = [
+  {
+    id: "uxplosion",
+    tag: "UXPLOSION 3.0 // SDC",
+    host: "Student Developers Community",
+    title: "Uxplosion 3.0",
+    headline: "1st Prize Winner at Uxplosion 3.0 Designathon",
+    award: "1st Prize Winner • Hackathon Champion",
+    metrics: [
+      { value: "30+", label: "Screens covered" },
+      { value: "8+", label: "Edge cases mapped" },
+    ],
+    description:
+      "Crafted comprehensive end-to-end design flows and systematic edge-case resolution under intensive hackathon time constraints, earning the 1st prize championship.",
+    image: "/achievements/uxplosion.png",
+    ctaText: "View Certificate ↗",
+    date: "Sep 2026",
+    badge: "1st Prize Champion",
+    accentColor: "#e52424",
+  },
+  {
+    id: "cvr",
+    tag: "CVR COLLEGE // UI/UX CONTEST",
+    host: "CVR College of Engineering",
+    title: "UI/UX Contest at CVR College",
+    headline: "1st Prize at CVR College UI/UX Contest",
+    award: "1st Prize Awarded to Taushik",
+    metrics: [
+      { value: "10+", label: "Core design flows" },
+      { value: "1st", label: "Place Award" },
+    ],
+    description:
+      "Architected intuitive user journeys, interactive Figma design systems, and cohesive micro-interactions evaluated against design heuristics and usability criteria.",
+    image: "/achievements/cvr.png",
+    ctaText: "View Certificate ↗",
+    date: "2026",
+    badge: "1st Prize Champion",
+    accentColor: "#e52424",
+  },
+  {
+    id: "signallabs",
+    tag: "SIGNAL LABS // AI HACK DAY",
+    host: "Signal Labs",
+    title: "Signal Labs AI Hackathon",
+    headline: "AI Workspace for Multiple Roles at Signal Labs",
+    award: "1st Prize Winner at Signal Labs",
+    metrics: [
+      { value: "AI", label: "Workspace for multiple roles" },
+      { value: "1st", label: "Prize at Signal Labs" },
+    ],
+    description:
+      "Engineered an agentic AI workspace tailored for specialized roles at Signal Labs, integrating ergonomic frontend layouts with intelligent model execution.",
+    image: "/achievements/signallabs.png",
+    ctaText: "View Certificate ↗",
+    date: "2026",
+    badge: "1st Prize Winner",
+    accentColor: "#e52424",
+  },
+  {
+    id: "scientclg",
+    tag: "SCIENT ENG COLLEGE // QUANTUM LEAP",
+    host: "SCIENT Institute of Technology",
+    title: "UI/UX Designathon at Scient Engineering College",
+    headline: "AI-Powered Projects with Frontend and Backend",
+    award: "Quantum Leap Runner Up Trophy",
+    metrics: [
+      { value: "Full-Stack", label: "Frontend and backend code" },
+      { value: "Runner", label: "Quantum Leap Trophy" },
+    ],
+    description:
+      "Shipped AI-powered projects with full-stack execution, seamless frontend interactions, and robust backend pipelines under rapid hackathon execution.",
+    image: "/achievements/scientclg.png",
+    ctaText: "View Trophy & Award ↗",
+    date: "2026",
+    badge: "Quantum Leap Runner",
+    accentColor: "#e52424",
   },
 ];

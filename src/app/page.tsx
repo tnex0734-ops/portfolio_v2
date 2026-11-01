@@ -16,6 +16,21 @@ import { BrandIcon } from "@/components/BrandIcon";
 import { CustomCursor } from "@/components/CustomCursor";
 import { LazyImage } from "@/components/lazy-image";
 import { SectionHeading } from "@/components/SectionHeading";
+import { AiProjectShowcase } from "@/components/AiProjectShowcase";
+import { AsciiHandLeft, AsciiHandRight } from "@/components/AsciiHands";
+import { UxUiIdCardsSection } from "@/components/UxUiIdCardsSection";
+import { AboutRedSection } from "@/components/AboutRedSection";
+import { ResumeDownloadButton } from "@/components/ResumeDownloadButton";
+
+import { AchievementsSection } from "@/components/AchievementsSection";
+
+import { ContactLetterSection } from "@/components/ContactLetterSection";
+
+import { ExperienceBooksSection } from "@/components/ExperienceBooksSection";
+import { EditorialPreloader } from "@/components/EditorialPreloader";
+import { FloatingNavbar } from "@/components/FloatingNavbar";
+import { ToolsSection } from "@/components/ToolsSection";
+
 import {
   aiProjects,
   contactLinks,
@@ -36,58 +51,48 @@ const fadeIn = {
 };
 
 export default function Home() {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const scrollTarget = params.get("scroll");
+      if (scrollTarget) {
+        const el = document.getElementById(scrollTarget);
+        if (el) {
+          setTimeout(() => el.scrollIntoView({ behavior: "instant" }), 100);
+          return;
+        }
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+      if (window.location.hash && !scrollTarget) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    }
+  }, []);
   return (
     <>
       <CustomCursor />
       <div className="grain" />
 
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--paper)]">
-        <nav className="section-shell flex h-16 items-center justify-between">
-          <a
-            href="#hero"
-            className="text-sm font-black uppercase tracking-normal"
-            aria-label="Back to hero"
-          >
-            Taushik / UX
-          </a>
-          <div className="hidden items-center gap-6 text-xs font-bold uppercase text-[var(--muted)] sm:flex">
-            {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="subtle-link">
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <a
-              href="/Taushik_ux_resume.pdf"
-              download="Taushik_ux_resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full border-2 border-[var(--ink)] bg-[#e52424] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-[2px_2px_0_#220608] hover:bg-[var(--ink)] hover:border-[var(--ink)] transition-all active:translate-x-0.5 active:translate-y-0.5"
-              aria-label="Download Resume"
-            >
-              <Download size={13} className="shrink-0" />
-              <span>Resume</span>
-            </a>
-            <a
-              href="mailto:taushikok@gmail.com"
-              className="grid h-9 w-9 place-items-center rounded-full border border-[var(--ink)] text-[var(--ink)] transition duration-200 hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-              aria-label="Email Taushik"
-            >
-              <Mail size={16} />
-            </a>
-          </div>
-        </nav>
-      </header>
+      <EditorialPreloader />
+      <FloatingNavbar />
 
-      <main className="relative z-10 overflow-x-hidden">
+      <main className="relative z-10 overflow-x-clip">
         <HeroSection />
-        <AboutSection />
+        <AboutRedSection />
         <ToolsSection />
         <AiProductsSection />
         <UxUiProjectsSection />
-        <ExperienceSection />
-        <ContactSection />
+        <AchievementsSection />
+        <ExperienceBooksSection />
+        
+
+        <ContactLetterSection />
       </main>
     </>
   );
@@ -116,6 +121,26 @@ function HeroSection() {
             <span className="w-1 h-1 sm:w-2.5 sm:h-2.5 rounded-full bg-white block" />
           </div>
           <div className="absolute bottom-0.5 left-0.5 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-[#e52424]" />
+        </div>
+      </div>
+
+      {/* Bottom Left Corner Red Accent Graphic */}
+      <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 z-20 pointer-events-none hidden sm:block">
+        <div className="relative w-14 h-14 border-2 border-[#e52424]">
+          <div className="absolute bottom-0 left-0 w-8 h-8 bg-[#e52424] flex items-center justify-center">
+            <span className="w-2 rounded-full bg-white block" />
+          </div>
+          <div className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-[#e52424]" />
+        </div>
+      </div>
+
+      {/* Bottom Right Corner Red Accent Graphic */}
+      <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 z-20 pointer-events-none hidden sm:block">
+        <div className="relative w-14 h-14 border-2 border-[#e52424]">
+          <div className="absolute bottom-0 right-0 w-8 h-8 bg-[#e52424] flex items-center justify-center">
+            <span className="w-2 rounded-full bg-white block" />
+          </div>
+          <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 rounded-full bg-[#e52424]" />
         </div>
       </div>
 
@@ -249,6 +274,7 @@ function HeroSection() {
               </span>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>
@@ -381,156 +407,9 @@ function HandDoodle({ type = "underline", className = "" }: { type?: "underline"
   );
 }
 
-function AboutSection() {
-  return (
-    <>
-      <BrutalistSectionDivider variant="zigzag" />
-      <section id="about" className="relative py-16 sm:py-28 overflow-hidden">
-        <FloatingShape className="left-4 top-8 text-[var(--coral)] opacity-35" delay={0.1}>
-          <Star size={24} fill="currentColor" />
-        </FloatingShape>
-        <FloatingShape
-          className="right-8 top-2 text-[var(--blue)] opacity-30 h-12 w-12 sm:h-16 sm:w-16 rounded-full border-2 border-dashed border-current"
-          spinDuration={20}
-          delay={0.2}
-        />
-        <FloatingShape className="left-8 bottom-4 text-[var(--sage)] opacity-40" delay={0.3}>
-          <Sparkle size={20} />
-        </FloatingShape>
 
-        <div className="section-shell grid gap-8 sm:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center relative z-10">
-          <motion.div {...fadeIn} className="relative">
-            <SectionHeading eyebrow="About Me" title="Designer & Builder" />
-            <HandDoodle type="underline" className="max-w-[220px] mt-1" />
-            <div className="absolute -top-4 right-2 sm:right-10 hidden sm:block">
-              <StarburstBadge text="UX ✦ 2026" />
-            </div>
-          </motion.div>
 
-          <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.08 }} className="space-y-6">
-            {/* Paper-cut zine card container */}
-            <div className="relative border-2 border-[var(--ink)] bg-[#fff8f8] p-6 sm:p-8 shadow-[6px_6px_0_#e52424] -rotate-1">
-              <p className="max-w-3xl text-base sm:text-xl leading-7 sm:leading-9 text-[var(--ink)] font-bold">
-                I&apos;m a UI/UX &amp; Product Designer bridging the gap between user experience, visual craft, and design engineering. I build intuitive digital interfaces and end-to-end product architectures that turn complex systems into seamless user journeys.
-              </p>
-              <p className="mt-4 max-w-3xl text-sm sm:text-base leading-6 sm:leading-8 text-[var(--muted)]">
-                Beyond traditional screens, I focus on how products are built and shipped—combining design systems, modern frontend code, AI stack workflows, and rapid prototyping to turn bold ideas into production-ready software.
-              </p>
-              <HandDoodle type="squiggle" className="absolute -bottom-4 -right-4 hidden sm:block" />
-            </div>
 
-            <div className="flex flex-wrap gap-4 pt-2 sm:pt-4">
-              <motion.div
-                whileHover={{ rotate: 1, scale: 1.03 }}
-                className="rounded-xl border-2 border-[var(--ink)] bg-white px-5 py-3 shadow-[4px_4px_0_#e52424] ring-2 ring-white"
-              >
-                <span className="block text-xs font-black uppercase text-[#e52424]">Focus</span>
-                <span className="text-xs sm:text-sm font-black uppercase text-[var(--ink)]">UI/UX &amp; Product Design</span>
-              </motion.div>
-              <motion.div
-                whileHover={{ rotate: -1, scale: 1.03 }}
-                className="rounded-xl border-2 border-[var(--ink)] bg-white px-5 py-3 shadow-[4px_4px_0_#220608] ring-2 ring-white"
-              >
-                <span className="block text-xs font-black uppercase text-[var(--muted)]">Execution</span>
-                <span className="text-xs sm:text-sm font-black uppercase text-[var(--ink)]">Design Engineering &amp; Shipping</span>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function ToolsSection() {
-  const toolItems = [
-    { name: "Canva", category: "Visual Assets" },
-    { name: "GPT", category: "AI Intelligence" },
-    { name: "Codex", category: "Code Generation" },
-    { name: "Claude", category: "AI Reasoning" },
-    { name: "Gemini", category: "Multimodal AI" },
-    { name: "Antigravity", category: "Agent Workflow" },
-    { name: "Miro", category: "Brainstorming" },
-    { name: "Lovable", category: "Vibe Coding" },
-    { name: "Stitch", category: "Design Systems" },
-    { name: "Replit", category: "Cloud Workspace" },
-  ];
-
-  return (
-    <>
-      <BrutalistSectionDivider variant="ripped" />
-      <section id="tools" className="relative py-12 sm:py-20 bg-[var(--paper)] select-none">
-        <div className="section-shell max-w-5xl mx-auto">
-          <motion.div {...fadeIn} className="relative">
-            <SectionHeading eyebrow="Stack & Workflow" title="Tools I Use" />
-            <HandDoodle type="underline" className="max-w-[180px] mt-1" />
-            <div className="absolute top-0 right-4 hidden sm:block">
-              <StarburstBadge text="RISO STACK" />
-            </div>
-          </motion.div>
-
-          {/* Anti-Slop Architectural Layout: Stage + Directory */}
-          <div className="mt-8 sm:mt-12 grid gap-8 md:grid-cols-[280px_1fr] lg:grid-cols-[330px_1fr] items-center">
-            {/* Main Hero Poster Artwork */}
-            <motion.div
-              {...fadeIn}
-              whileHover={{ scale: 1.02, rotate: 1 }}
-              className="relative mx-auto w-full max-w-[270px] sm:max-w-[310px] rounded-2xl border-2 border-[var(--ink)] bg-white p-2.5 shadow-[8px_8px_0_#e52424]"
-            >
-              <div className="overflow-hidden rounded-xl border border-[var(--line)]">
-                <img
-                  src="/tools_poster.png"
-                  alt="Tools I Use - Poster Artwork"
-                  className="w-full h-auto object-contain block max-h-[410px]"
-                />
-              </div>
-              <div className="mt-2.5 flex items-center justify-between px-1 text-[10px] font-black uppercase text-[var(--muted)] tracking-wider">
-                <span>Poster Edition</span>
-                <span className="text-[#e52424] font-bold">10 Core Tools</span>
-              </div>
-            </motion.div>
-
-            {/* Clean Structured Tool Directory */}
-            <motion.div
-              {...fadeIn}
-              transition={{ ...fadeIn.transition, delay: 0.1 }}
-              className="flex flex-col justify-center relative"
-            >
-              <div className="mb-4 pb-2 border-b-2 border-[var(--ink)] flex items-center justify-between">
-                <h3 className="text-xs font-black uppercase tracking-widest text-[#e52424]">
-                  Core Stack Directory
-                </h3>
-                <span className="font-mono text-[11px] font-bold text-[var(--ink)] bg-[#e52424]/10 px-2 py-0.5 rounded">2026</span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {toolItems.map((tool, index) => (
-                  <motion.div
-                    key={tool.name}
-                    whileHover={{ scale: 1.03, rotate: index % 2 === 0 ? -1 : 1 }}
-                    className="group flex items-center justify-between rounded-xl border-2 border-[var(--ink)] bg-white px-3.5 py-2.5 transition-all duration-200 hover:border-[#e52424] shadow-[3px_3px_0_#220608] hover:shadow-[4px_4px_0_#e52424]"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="grid h-7 w-7 place-items-center rounded-lg border border-[var(--ink)] bg-[#fff8f8] text-[var(--ink)] group-hover:border-[#e52424] group-hover:text-[#e52424]">
-                        <BrandIcon name={tool.name} className="h-4 w-4" />
-                      </span>
-                      <span className="text-xs font-black uppercase text-[var(--ink)] group-hover:text-[#e52424]">
-                        {tool.name}
-                      </span>
-                    </div>
-                    <span className="font-mono text-[10px] font-bold text-[var(--muted)] uppercase">
-                      {tool.category}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
 
 function UxUiProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<UxUiProject | null>(null);
@@ -554,114 +433,13 @@ function UxUiProjectsSection() {
   return (
     <>
       <BrutalistSectionDivider variant="zigzag" />
-      <section id="ux-ui" className="relative overflow-hidden py-20 sm:py-32 scroll-mt-16">
+      <section id="ux-ui" className="relative overflow-hidden py-10 sm:py-16 scroll-mt-16 bg-[var(--paper)]">
         {/* Invisible anchor for backward compatibility with #figma */}
         <span id="figma" className="absolute -top-20" aria-hidden="true" />
 
-        <FloatingShape className="left-6 top-20 text-[var(--sage)] opacity-35" delay={0.1}>
-          <Star size={26} fill="currentColor" />
-        </FloatingShape>
-        <FloatingShape className="right-8 top-12 text-[var(--blue)] opacity-45" delay={0.2}>
-          <Sparkle size={24} />
-        </FloatingShape>
-        <FloatingShape className="right-1/4 bottom-8 text-[var(--clay)] opacity-40" delay={0.3}>
-          <Star size={20} fill="currentColor" />
-        </FloatingShape>
-        <div
-          aria-hidden="true"
-          className="poster-outline display-font pointer-events-none absolute left-1/2 top-12 -translate-x-1/2 text-4xl sm:text-8xl md:text-[9rem] lg:text-[12rem] font-black uppercase leading-none select-none"
-        >
-          UX / UI
-        </div>
-
-        <div className="section-shell relative z-10">
-          <motion.div {...fadeIn} className="relative">
-            <SectionHeading
-              eyebrow="UX Research, UI Designs, Prototypes, Design Systems"
-              title="UX / UI Projects"
-            />
-            <HandDoodle type="underline" className="max-w-[280px] mt-1" />
-            <div className="absolute top-0 right-2 hidden sm:block">
-              <StarburstBadge text="CORE WORK" />
-            </div>
-          </motion.div>
-
-          <div className="mt-10 sm:mt-16 grid gap-6 md:grid-cols-3 items-stretch">
-            {uxUiProjects.map((project, index) => {
-              const isNexus = Boolean(project.hasModal);
-
-              return (
-                <motion.div
-                  key={project.title}
-                  {...fadeIn}
-                  transition={{ ...fadeIn.transition, delay: index * 0.06 }}
-                  whileHover={{ y: -6, rotate: index % 2 === 0 ? -1 : 1 }}
-                  className="group flex flex-col justify-between rounded-2xl border-2 border-[var(--ink)] bg-white p-5 shadow-[6px_6px_0_#220608] hover:shadow-[8px_8px_0_#e52424] transition-all duration-200"
-                >
-                  <div>
-                    {/* Clean Cover Artwork Preview */}
-                    <div
-                      onClick={() => isNexus && setSelectedProject(project)}
-                      className={`w-full flex items-center justify-center p-2 rounded-xl bg-[#fff5f5]/80 overflow-hidden ${
-                        isNexus ? "cursor-pointer" : ""
-                      }`}
-                    >
-                      <img
-                        src={project.coverImage}
-                        alt={project.title}
-                        className="w-full max-h-[250px] object-contain transition-transform duration-300 group-hover:scale-[1.03]"
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2.5 py-0.5 rounded shadow-[2px_2px_0_#220608]">
-                          {project.number}
-                        </span>
-                        <span className="font-mono text-[10px] font-black uppercase tracking-wider text-[var(--muted)]">
-                          {project.category}
-                        </span>
-                      </div>
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase text-[var(--ink)] group-hover:text-[#e52424] transition-colors flex items-center justify-between gap-2 break-words">
-                        <span>{project.title}</span>
-                        <ArrowUpRight
-                          size={20}
-                          className="text-[#e52424] shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        />
-                      </h3>
-                      <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[var(--muted)]">
-                        {project.subtitle}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Single Clean CTA per Card */}
-                  <div className="mt-6 pt-4 border-t-2 border-[var(--line)]">
-                    {isNexus ? (
-                      <button
-                        type="button"
-                        onClick={() => setSelectedProject(project)}
-                        className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-[var(--ink)] bg-[var(--ink)] py-2.5 px-4 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-[3px_3px_0_#e52424] hover:bg-[#e52424] hover:border-[#e52424] transition-all"
-                      >
-                        <span>Explore UX &amp; UI Prototype ✦</span>
-                      </button>
-                    ) : (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-[var(--ink)] bg-[#fff8f8] py-2.5 px-4 text-xs sm:text-sm font-black uppercase tracking-wider text-[var(--ink)] shadow-[2px_2px_0_#220608] hover:bg-[#e52424] hover:text-white hover:border-[#e52424] transition-all"
-                      >
-                        <BrandIcon name="Figma" className="h-4 w-4" />
-                        <span>Open Figma File ↗</span>
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+        <div className="section-shell relative z-10 w-full max-w-6xl mx-auto">
+          {/* Semicircular Rotational Carousel (Reference: Dev Toolkit • Built to Flex) */}
+          <UxUiIdCardsSection onOpenModal={setSelectedProject} />
         </div>
 
         {/* NEXUS GG DUAL MODAL (UX & UI) */}
@@ -781,79 +559,38 @@ function UxUiProjectsSection() {
 function AiProductsSection() {
   return (
     <>
-      <BrutalistSectionDivider variant="spikes" />
-      <section id="products" className="relative py-20 sm:py-32 overflow-hidden scroll-mt-16">
-        <FloatingShape className="left-12 top-4 text-[var(--clay)] opacity-40" delay={0.1}>
-          <Star size={22} fill="currentColor" />
+      
+      <section id="products" className="relative py-6 sm:py-10 overflow-hidden scroll-mt-16 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+        <FloatingShape className="left-12 top-4 text-[var(--clay)] opacity-30" delay={0.1}>
+          <Star size={20} fill="currentColor" />
         </FloatingShape>
-        <FloatingShape className="right-12 top-8 text-[var(--coral)] opacity-35" delay={0.2}>
-          <Sparkle size={28} />
+        <FloatingShape className="right-12 top-6 text-[var(--coral)] opacity-30" delay={0.2}>
+          <Sparkle size={24} />
         </FloatingShape>
-        <FloatingShape
-          className="left-1/3 bottom-12 text-[var(--blue)] opacity-20 h-10 w-10 sm:h-12 sm:w-12 border-2 border-dashed border-current"
-          spinDuration={15}
-          delay={0.3}
-        />
-        <div className="section-shell relative z-10">
-          <motion.div {...fadeIn} className="relative">
-            <SectionHeading
-              eyebrow="Side projects & vibe coded work"
-              title="AI Powered Products / Side Projects"
-            />
-            <HandDoodle type="underline" className="max-w-[280px] mt-1" />
-            <div className="absolute top-0 right-2 hidden sm:block">
-              <StarburstBadge text="SIDE PROJECTS" />
-            </div>
+
+        <div className="w-full relative z-10 px-2 sm:px-4">
+          <motion.div {...fadeIn} className="text-center mb-3 sm:mb-4">
+            <h2 className="display-font text-2xl sm:text-3xl md:text-4xl font-black uppercase text-[var(--ink)] tracking-tight leading-tight">
+              AI Powered Products / Side Projects
+            </h2>
           </motion.div>
 
-          <div className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
-            {aiProjects.map((project, index) => (
-              <motion.a
-                key={project.title}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.04 }}
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={{ y: -5, rotate: index % 2 === 0 ? -1 : 1 }}
-                className="group flex min-h-[260px] sm:min-h-[290px] flex-col justify-between rounded-xl border-2 border-[var(--ink)] bg-white p-5 sm:p-6 shadow-[5px_5px_0_#e52424] transition duration-200 hover:shadow-[7px_7px_0_#220608]"
-              >
-                <div>
-                  <div className="mb-4 sm:mb-5 flex items-center justify-between">
-                    <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2 py-0.5 rounded shadow-[2px_2px_0_#220608]">
-                      0{index + 1}
-                    </span>
-                    <ArrowUpRight
-                      size={20}
-                      className="transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#e52424]"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-black uppercase leading-tight flex flex-wrap items-center gap-x-2 gap-y-1">
-                    {project.title}
-                    {(project.title.toLowerCase() === "creonix" ||
-                      project.title.toLowerCase() === "prepblitz") && (
-                      <span className="inline-block rounded-md border border-[#e52424] bg-[#fff8f8] text-[#e52424] px-2 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-[2px_2px_0_#220608]">
-                        Under Progress
-                      </span>
-                    )}
-                  </h3>
-                  <p className="mt-2.5 text-xs sm:text-sm leading-5 sm:leading-6 text-[var(--muted)]">
-                    {project.description}
-                  </p>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-1.5 sm:gap-2">
-                  {project.tools.map((tool) => (
-                    <span
-                      key={`${project.title}-${tool}`}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--ink)] bg-[#fff8f8] px-2.5 py-1 text-[10px] sm:text-[11px] font-bold uppercase text-[var(--ink)] ring-2 ring-white"
-                    >
-                      <BrandIcon name={tool} className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </motion.a>
-            ))}
+          {/* Symmetrical Flanking Layout: Hands emerge from screen edges and stop before the card */}
+          <div className="relative w-full max-w-[1880px] mx-auto flex items-center justify-center">
+            {/* Left Hand: Emerging from left screen edge pointing at the card */}
+            <div className="hidden lg:flex flex-1 items-center justify-end pr-2 lg:pr-3 2xl:pr-6 pointer-events-none select-none overflow-hidden">
+              <AsciiHandLeft />
+            </div>
+
+            {/* Central UI Showcase Card */}
+            <div className="w-full max-w-4xl xl:max-w-5xl shrink-0 z-10 mx-auto">
+              <AiProjectShowcase />
+            </div>
+
+            {/* Right Hand: Emerging from right screen edge pointing at the card */}
+            <div className="hidden lg:flex flex-1 items-center justify-start pl-2 lg:pl-3 2xl:pl-6 pointer-events-none select-none overflow-hidden">
+              <AsciiHandRight />
+            </div>
           </div>
         </div>
       </section>
@@ -861,156 +598,3 @@ function AiProductsSection() {
   );
 }
 
-function ExperienceSection() {
-  return (
-    <>
-      <BrutalistSectionDivider variant="ripped" />
-      <section id="experience" className="relative py-16 sm:py-32 overflow-hidden">
-        <FloatingShape className="left-20 top-2 text-[var(--coral)] opacity-45" delay={0.1}>
-          <Sparkle size={22} />
-        </FloatingShape>
-        <FloatingShape
-          className="right-12 top-16 text-[var(--sage)] opacity-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full border border-dashed border-current"
-          spinDuration={25}
-          delay={0.2}
-        />
-        <FloatingShape className="left-8 bottom-4 text-[var(--blue)] opacity-35" delay={0.3}>
-          <Star size={24} fill="currentColor" />
-        </FloatingShape>
-        <div className="section-shell relative z-10">
-          <motion.div {...fadeIn} className="relative">
-            <SectionHeading eyebrow="Recent roles" title="Experience" />
-            <HandDoodle type="underline" className="max-w-[160px] mt-1" />
-          </motion.div>
-          <div className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {experience.map((item, index) => (
-              <motion.article
-                key={item.company}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.05 }}
-                whileHover={{ y: -4, rotate: index % 2 === 0 ? -1 : 1 }}
-                className="relative min-h-44 sm:min-h-48 rounded-xl border-2 border-[var(--ink)] bg-white p-5 shadow-[5px_5px_0_#e52424] flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between border-b-2 border-[var(--ink)] pb-3">
-                    <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2 py-0.5 rounded shadow-[2px_2px_0_#220608]">
-                      ROLE 0{index + 1}
-                    </span>
-                    <span className="font-mono text-[11px] font-bold text-[var(--muted)]">{item.date}</span>
-                  </div>
-                  <h3 className="mt-4 text-base sm:text-lg font-black uppercase leading-tight text-[var(--ink)]">
-                    {item.company}
-                  </h3>
-                  <p className="mt-2 text-xs sm:text-sm font-black uppercase text-[#e52424]">
-                    {item.role}
-                  </p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function ContactSection() {
-  return (
-    <>
-      <BrutalistSectionDivider variant="spikes" />
-      <section id="contact" className="relative pb-16 pt-16 sm:pb-20 sm:pt-32 overflow-hidden select-none">
-        <FloatingShape className="right-24 top-4 text-[var(--clay)] opacity-45" delay={0.1}>
-          <Sparkle size={32} />
-        </FloatingShape>
-        <FloatingShape className="left-8 bottom-32 text-[var(--coral)] opacity-35" delay={0.2}>
-          <Star size={28} fill="currentColor" />
-        </FloatingShape>
-        <div className="section-shell relative z-10">
-          <motion.div
-            {...fadeIn}
-            className="grid gap-8 sm:gap-10 border-2 border-[var(--ink)] bg-white p-6 sm:p-10 rounded-2xl shadow-[8px_8px_0_#e52424] lg:grid-cols-[1.1fr_0.9fr] items-center"
-          >
-            <div className="min-w-0">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-black uppercase tracking-widest text-[#e52424]">
-                  Contact
-                </span>
-                <StarburstBadge text="GET IN TOUCH" />
-              </div>
-              <h2 className="display-font text-3xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-black uppercase leading-[0.88] text-[var(--ink)] break-words">
-                Let&apos;s Connect
-              </h2>
-              <HandDoodle type="arrow" className="mt-4 hidden sm:block" />
-            </div>
-            <div className="min-w-0 flex flex-col justify-center gap-4 sm:gap-5">
-              {contactLinks.map((item) => {
-                const isExternal = item.href.startsWith("http");
-
-                return (
-                  <motion.a
-                    key={item.label}
-                    href={item.href}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noreferrer" : undefined}
-                    whileHover={{ x: 4, scale: 1.01 }}
-                    className="group flex items-center justify-between gap-4 border-2 border-[var(--ink)] bg-[#fff8f8] p-3.5 sm:p-4 rounded-xl shadow-[3px_3px_0_#220608] hover:border-[#e52424] hover:shadow-[4px_4px_0_#e52424] transition-all min-w-0"
-                  >
-                    <span className="flex items-center gap-3 min-w-0">
-                      <span className="grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-lg border-2 border-[var(--ink)] bg-white text-[#e52424] shadow-[2px_2px_0_#220608]">
-                        <ContactIcon label={item.label} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block text-[10px] sm:text-xs font-black uppercase text-[var(--muted)]">
-                          {item.label}
-                        </span>
-                        <span className="subtle-link block text-sm sm:text-base md:text-lg font-black text-[var(--ink)] group-hover:text-[#e52424] truncate">
-                          {item.value}
-                        </span>
-                      </span>
-                    </span>
-                    <ArrowUpRight
-                      size={20}
-                      className="text-[#e52424] shrink-0 transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    />
-                  </motion.a>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          <footer className="mt-16 sm:mt-20 flex flex-col sm:flex-row items-center justify-between gap-4 border-t-2 border-[var(--ink)] pt-6 text-xs font-bold uppercase text-[var(--muted)]">
-            <p>Taushik Chandana Portfolio &apos;26</p>
-            <div className="flex items-center gap-4">
-              <a
-                href="/Taushik_ux_resume.pdf"
-                download="Taushik_ux_resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border-2 border-[var(--ink)] bg-[#e52424] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-[3px_3px_0_#220608] hover:bg-[var(--ink)] hover:border-[var(--ink)] transition-all active:translate-x-0.5 active:translate-y-0.5"
-                aria-label="Download Resume"
-              >
-                <Download size={14} />
-                <span>Download Resume</span>
-              </a>
-              <a href="#hero" className="subtle-link text-[#e52424]">
-                Back to top ↑
-              </a>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function ContactIcon({ label }: { label: string }) {
-  if (label === "LinkedIn") {
-    return <span className="text-[11px] font-black leading-none">in</span>;
-  }
-
-  if (label === "Phone") {
-    return <Phone size={16} />;
-  }
-
-  return <Mail size={16} />;
-}

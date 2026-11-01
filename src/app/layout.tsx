@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Outfit, Archivo_Black, Syne, Space_Grotesk } from "next/font/google";
+import { Outfit, Archivo_Black, Syne, Space_Grotesk, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -25,6 +26,12 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["700"],
 });
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+  variable: "--font-playfair",
+});
+
 export const metadata: Metadata = {
   title: "Taushik Chandana | UI/UX & Product Designer",
   description:
@@ -39,9 +46,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${archivoBlack.variable} ${syne.variable} ${spaceGrotesk.variable}`}
+      className={`${outfit.variable} ${archivoBlack.variable} ${syne.variable} ${spaceGrotesk.variable} ${playfair.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }
