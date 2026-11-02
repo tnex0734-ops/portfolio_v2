@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { BrandIcon } from "@/components/BrandIcon";
 import { Laptop, PenTool } from "lucide-react";
 
 interface SpilledTool {
@@ -21,19 +20,37 @@ interface SpilledTool {
   mobileRotate: number;
 }
 
-// Exactly matches Attachment 2 ("WORKSTATION SPILL / 10+ CREATIVE ENGINES LOADED")
+// Stylized double-triangle delta glyph matching user reference screenshot (media_1793605445904_c9994082.jpg)
+function DeltaGlyph({ color }: { color: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-4 w-4 shrink-0"
+      fill="none"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="12,3 2,21 22,21" />
+      <polygon points="12,10 7,18 17,18" />
+    </svg>
+  );
+}
+
+// Exactly matches Attachment 2 and the latest user reference screenshot (media_1793605445904_c9994082.jpg)
 const TOOLS_CASCADE: SpilledTool[] = [
   {
     name: "FIGMA",
     category: "INTERFACE & PROTOTYPING",
-    color: "#0ACF83",
+    color: "#10b981",
     bgTint: "#f6fffb",
     x: -160,
-    y: 50,
-    rotation: -9,
+    y: 30,
+    rotation: -8,
     zIndex: 6,
     mobileX: -85,
-    mobileY: 35,
+    mobileY: 28,
     mobileRotate: -8,
   },
   {
@@ -41,38 +58,38 @@ const TOOLS_CASCADE: SpilledTool[] = [
     category: "APP ROUTER & SSR",
     color: "#141416",
     bgTint: "#fafafa",
-    x: 145,
-    y: 55,
+    x: 140,
+    y: 35,
     rotation: 5,
     zIndex: 6,
     mobileX: 80,
-    mobileY: 38,
-    mobileRotate: 6,
+    mobileY: 32,
+    mobileRotate: 5,
   },
   {
     name: "GPT",
     category: "REASONING & PROMPTING",
     color: "#10a37f",
     bgTint: "#f3fbf7",
-    x: -95,
-    y: 105,
-    rotation: -5,
+    x: -85,
+    y: 85,
+    rotation: -4,
     zIndex: 8,
     mobileX: -55,
-    mobileY: 80,
-    mobileRotate: -5,
+    mobileY: 72,
+    mobileRotate: -4,
   },
   {
     name: "CLAUDE",
     category: "DESIGN INTELLIGENCE",
-    color: "#d97706",
+    color: "#ea580c",
     bgTint: "#fffdf9",
-    x: 80,
-    y: 115,
+    x: 70,
+    y: 95,
     rotation: 4,
     zIndex: 9,
     mobileX: 55,
-    mobileY: 88,
+    mobileY: 80,
     mobileRotate: 4,
   },
   {
@@ -80,25 +97,25 @@ const TOOLS_CASCADE: SpilledTool[] = [
     category: "VIBE CODING & FULLSTACK",
     color: "#e52424",
     bgTint: "#fff9f9",
-    x: -155,
-    y: 165,
+    x: -165,
+    y: 155,
     rotation: -12,
     zIndex: 11,
     mobileX: -80,
-    mobileY: 130,
+    mobileY: 122,
     mobileRotate: -10,
   },
   {
     name: "CANVA",
     category: "VISUALS & SOCIAL",
-    color: "#00c4cc",
+    color: "#06b6d4",
     bgTint: "#f5fdfd",
-    x: 155,
-    y: 175,
+    x: 160,
+    y: 165,
     rotation: 8,
     zIndex: 10,
     mobileX: 80,
-    mobileY: 138,
+    mobileY: 130,
     mobileRotate: 8,
   },
   {
@@ -106,12 +123,12 @@ const TOOLS_CASCADE: SpilledTool[] = [
     category: "WORKSHOPS & MAPPING",
     color: "#eab308",
     bgTint: "#fffdf0",
-    x: -50,
-    y: 225,
+    x: -55,
+    y: 215,
     rotation: 6,
     zIndex: 14,
     mobileX: -35,
-    mobileY: 180,
+    mobileY: 170,
     mobileRotate: 5,
   },
   {
@@ -120,19 +137,19 @@ const TOOLS_CASCADE: SpilledTool[] = [
     color: "#8b5cf6",
     bgTint: "#fbf9ff",
     x: 85,
-    y: 240,
-    rotation: -7,
+    y: 230,
+    rotation: -6,
     zIndex: 15,
-    mobileX: 50,
-    mobileY: 195,
+    mobileX: 48,
+    mobileY: 182,
     mobileRotate: -6,
   },
 ];
 
 export function ToolsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  // once: true ensures tools emerge once with high impact and remain stable
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+  // Emerges smoothly on scroll and remains rock-solid in place
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
 
   return (
@@ -141,7 +158,7 @@ export function ToolsSection() {
       ref={containerRef}
       className="relative w-full py-16 sm:py-24 bg-[#fdfdfd] overflow-hidden select-none border-b border-[var(--line)] scroll-mt-16"
     >
-      {/* Background Architectural Dot Grid Pattern (matching reference Attachment 2) */}
+      {/* Background Architectural Dot Grid Pattern */}
       <div
         className="absolute inset-0 pointer-events-none opacity-45"
         style={{
@@ -152,30 +169,30 @@ export function ToolsSection() {
         }}
       />
 
-      {/* Signature Red Dot Marker in upper left with gentle kinetic pulse */}
+      {/* Signature Red Dot Marker on the RIGHT (exact detail from user reference image) */}
       <motion.div
-        animate={{ scale: [1, 1.25, 1], opacity: [0.8, 1, 0.8] }}
+        animate={{ scale: [1, 1.25, 1], opacity: [0.85, 1, 0.85] }}
         transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-10 left-8 sm:top-14 sm:left-14 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#e52424] pointer-events-none select-none z-0 shadow-sm"
+        className="absolute right-6 sm:right-12 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#e52424] pointer-events-none select-none z-0 shadow-sm"
         aria-hidden="true"
       />
 
-      {/* ── BOLD CORNER EDGE JUNCTIONS WITH CONTINUOUS ROTATION ── */}
-      <div className="pointer-events-none absolute top-8 right-6 sm:right-10 z-0 opacity-40 hidden sm:block" aria-hidden="true">
+      {/* ── BOLD CORNER EDGE JUNCTION WITH CONTINUOUS ROTATION ── */}
+      <div className="pointer-events-none absolute top-8 left-6 sm:left-10 z-0 opacity-40 hidden sm:block" aria-hidden="true">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           className="relative w-14 h-14 border-2 border-[#141416]"
         >
-          <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#e52424]" />
-          <div className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 bg-[#141416]" />
+          <div className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 bg-[#e52424]" />
+          <div className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 bg-[#141416]" />
           <div className="absolute inset-1.5 border border-dashed border-[#e52424]" />
         </motion.div>
       </div>
 
       <div className="section-shell max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
-        {/* Section Header: Clean bold heading */}
+        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
           <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#141416] leading-[1.08]">
             <span className="font-editorial-italic font-normal block sm:inline">What </span>
@@ -189,14 +206,14 @@ export function ToolsSection() {
             </span>
           </h2>
           <p className="mt-3 text-xs sm:text-sm text-[#606068] font-medium max-w-md mx-auto leading-relaxed">
-            As you reach this workstation, my core tools spill out from behind the laptop and cascade across the deck.
+            As you reach this workstation, my core tools emerge out and around the laptop in the center.
           </p>
         </div>
 
-        {/* ── THE WORKSTATION SPILL STAGE ── */}
+        {/* ── THE WORKSTATION SPILL STAGE: LAPTOP IN CENTER, TOOLS EMERGE OUT & AROUND ── */}
         <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center min-h-[580px] sm:min-h-[640px] pt-4">
           
-          {/* 1. Tilted Isometric Stylized Laptop with Subtle Idle Floating Breathe */}
+          {/* 1. Tilted Isometric Stylized Laptop in the Center */}
           <div className="relative z-20 pointer-events-auto">
             <motion.div
               initial={{ rotateX: 28, y: -20, opacity: 0 }}
@@ -267,9 +284,9 @@ export function ToolsSection() {
             </motion.div>
           </div>
 
-          {/* 2. THE 8 TOOL PILLS: PHYSICALLY EMERGE OUT FROM BEHIND THE LAPTOP */}
+          {/* 2. THE 8 TOOL PILLS: EMERGE OUT FROM CENTER AND FAN AROUND THE LAPTOP */}
           {/* DESKTOP CASCADE VIEW (sm and up) */}
-          <div className="hidden sm:block absolute top-[210px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
+          <div className="hidden sm:block absolute top-[215px] sm:top-[235px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
             {TOOLS_CASCADE.map((tool, index) => {
               const isHovered = hoveredTool === tool.name;
 
@@ -278,8 +295,8 @@ export function ToolsSection() {
                   key={tool.name}
                   initial={{
                     x: 0,
-                    y: -60,
-                    scale: 0.15,
+                    y: 0,
+                    scale: 0,
                     opacity: 0,
                     rotate: 0,
                   }}
@@ -294,18 +311,18 @@ export function ToolsSection() {
                         }
                       : {
                           x: 0,
-                          y: -60,
-                          scale: 0.15,
+                          y: 0,
+                          scale: 0,
                           opacity: 0,
                           rotate: 0,
                         }
                   }
                   transition={{
                     type: "spring",
-                    stiffness: 90,
-                    damping: 13,
-                    mass: 0.8,
-                    delay: 0.25 + index * 0.08, // Staggered explosive emergence from behind the laptop!
+                    stiffness: 85,
+                    damping: 12,
+                    mass: 0.75,
+                    delay: 0.15 + index * 0.08, // Staggered explosion outward from center around the laptop!
                   }}
                   onMouseEnter={() => setHoveredTool(tool.name)}
                   onMouseLeave={() => setHoveredTool(null)}
@@ -315,19 +332,18 @@ export function ToolsSection() {
                   className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer"
                 >
                   <motion.div
-                    whileHover={{ y: -5, scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
-                    className="flex items-center gap-3 px-4 py-2.5 rounded-2xl border-2 border-[#141416] shadow-[4px_4px_0_#141416] hover:shadow-[6px_6px_0_#e52424] hover:border-[#e52424] transition-all duration-200 select-none whitespace-nowrap"
+                    whileHover={{ y: -6, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-2xl border-2 border-[#141416] shadow-[4px_4px_0_#141416] hover:shadow-[7px_7px_0_#e52424] hover:border-[#e52424] transition-all duration-200 select-none whitespace-nowrap"
                     style={{
                       backgroundColor: tool.bgTint,
                     }}
                   >
-                    {/* Brand Icon Box */}
+                    {/* Brand Delta Glyph Box matching Reference */}
                     <div
                       className="grid h-8 w-8 place-items-center rounded-xl border border-[#141416]/15 bg-white shrink-0 shadow-2xs"
-                      style={{ color: tool.color }}
                     >
-                      <BrandIcon name={tool.name} className="h-4 w-4" />
+                      <DeltaGlyph color={tool.color} />
                     </div>
 
                     {/* Bold Name & Clean Uppercase Sub-category */}
@@ -345,7 +361,7 @@ export function ToolsSection() {
             })}
           </div>
 
-          {/* MOBILE CASCADE VIEW (< sm, tailored responsive scale + emergence) */}
+          {/* MOBILE CASCADE VIEW (< sm, tailored responsive scale + outward emergence) */}
           <div className="sm:hidden absolute top-[180px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
             {TOOLS_CASCADE.map((tool, index) => {
               const isHovered = hoveredTool === tool.name;
@@ -355,8 +371,8 @@ export function ToolsSection() {
                   key={`mobile-${tool.name}`}
                   initial={{
                     x: 0,
-                    y: -50,
-                    scale: 0.15,
+                    y: 0,
+                    scale: 0,
                     opacity: 0,
                     rotate: 0,
                   }}
@@ -365,24 +381,24 @@ export function ToolsSection() {
                       ? {
                           x: tool.mobileX,
                           y: tool.mobileY,
-                          scale: isHovered ? 1.05 : 0.9,
+                          scale: isHovered ? 1.04 : 0.88,
                           opacity: 1,
                           rotate: isHovered ? 0 : tool.mobileRotate,
                         }
                       : {
                           x: 0,
-                          y: -50,
-                          scale: 0.15,
+                          y: 0,
+                          scale: 0,
                           opacity: 0,
                           rotate: 0,
                         }
                   }
                   transition={{
                     type: "spring",
-                    stiffness: 90,
-                    damping: 13,
-                    mass: 0.8,
-                    delay: 0.2 + index * 0.07,
+                    stiffness: 85,
+                    damping: 12,
+                    mass: 0.75,
+                    delay: 0.12 + index * 0.07,
                   }}
                   onTouchStart={() => setHoveredTool(tool.name)}
                   onMouseEnter={() => setHoveredTool(tool.name)}
@@ -401,9 +417,8 @@ export function ToolsSection() {
                   >
                     <div
                       className="grid h-6 w-6 place-items-center rounded-lg border border-[#141416]/15 bg-white shrink-0"
-                      style={{ color: tool.color }}
                     >
-                      <BrandIcon name={tool.name} className="h-3 w-3" />
+                      <DeltaGlyph color={tool.color} />
                     </div>
                     <div className="flex flex-col text-left">
                       <span className="font-black text-[10px] uppercase tracking-tight text-[#141416]">
