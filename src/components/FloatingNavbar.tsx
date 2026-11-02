@@ -167,24 +167,16 @@ export function FloatingNavbar() {
             )}
           </button>
 
-          {/* 2. The "Let's talk" Button Pair matching Attachment 1 (Circular [↗] + Rounded Pill [Let's talk]) */}
-          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-            <a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, "#contact")}
-              className="grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full bg-[#141416] hover:bg-[#e52424] text-white shadow-xs transition-all duration-200 hover:scale-105 active:scale-95"
-              aria-label="Direct contact link"
-            >
-              <ArrowUpRight size={13} className="sm:w-3.5 sm:h-3.5" />
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, "#contact")}
-              className="flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141416] hover:bg-[#e52424] text-white text-xs sm:text-sm font-bold tracking-tight transition-all duration-200 shadow-xs hover:scale-105 active:scale-95 shrink-0"
-            >
-              <span>Let's talk</span>
-            </a>
-          </div>
+          {/* 2. The "Let's talk" Button: Mobile-optimized with embedded arrow, expands cleanly on desktop */}
+          <a
+            href="#contact"
+            onClick={(e) => scrollToSection(e, "#contact")}
+            className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141416] hover:bg-[#e52424] text-white text-xs sm:text-sm font-bold tracking-tight transition-all duration-200 shadow-xs hover:scale-105 active:scale-95 shrink-0"
+            aria-label="Let's talk"
+          >
+            <span>Let&apos;s talk</span>
+            <ArrowUpRight size={13} className="shrink-0" />
+          </a>
 
         </div>
 

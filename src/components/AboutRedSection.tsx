@@ -223,7 +223,7 @@ export function AboutRedSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="font-editorial-italic text-[5rem] xs:text-[6.5rem] sm:text-[8.5rem] md:text-[10.5rem] lg:text-[12.5rem] xl:text-[14rem] leading-[0.85] text-white tracking-[-0.03em] select-none flex items-baseline justify-center font-normal drop-shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
+              className="font-editorial-italic text-[3.5rem] xs:text-[4.5rem] sm:text-[6.8rem] md:text-[9.5rem] lg:text-[12rem] xl:text-[14rem] leading-[0.85] text-white tracking-[-0.03em] select-none flex items-baseline justify-center font-normal drop-shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
             >
               <span>Taush</span>
               {/* Signature Pixel Sunflower in place of the letter 'i' */}
@@ -255,15 +255,15 @@ export function AboutRedSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-10 sm:mt-14 max-w-5xl mx-auto rounded-3xl border-2 border-white/35 bg-white/10 backdrop-blur-sm p-6 sm:p-8 lg:p-10 shadow-lg"
+          className="mt-8 sm:mt-14 max-w-5xl mx-auto rounded-2xl sm:rounded-3xl border-2 border-white/35 bg-white/10 backdrop-blur-sm p-4 xs:p-6 sm:p-8 lg:p-10 shadow-lg"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
             {/* The Sketch of Taushik with laptop with gentle breathing float */}
             <div className="lg:col-span-5 flex justify-center w-full">
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-                className="w-full max-w-[320px] sm:max-w-[360px]"
+                className="w-full max-w-[260px] xs:max-w-[300px] sm:max-w-[360px]"
               >
                 <img
                   src="/taushik_laptop_sketch.png"
@@ -274,12 +274,12 @@ export function AboutRedSection() {
             </div>
 
             {/* The Descriptive Narrative & Pill Badges */}
-            <div className="lg:col-span-7 text-center lg:text-left space-y-4 sm:space-y-5">
-              <p className="text-base sm:text-xl md:text-2xl font-bold leading-relaxed sm:leading-snug text-white tracking-tight">
+            <div className="lg:col-span-7 text-center lg:text-left space-y-3.5 sm:space-y-5">
+              <p className="text-sm xs:text-base sm:text-xl md:text-2xl font-bold leading-relaxed sm:leading-snug text-white tracking-tight">
                 I&apos;m a UI/UX &amp; Product Designer bridging the gap between user experience, visual craft, and design engineering. I build intuitive digital interfaces and product architectures that turn complex systems into seamless user journeys.
               </p>
 
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/85 font-medium">
+              <p className="text-xs xs:text-sm sm:text-base md:text-lg leading-relaxed text-white/85 font-medium">
                 Beyond traditional screens, I focus on how products are built and shipped—combining design systems, modern frontend code, AI stack workflows, vibe coding, and rapid prototyping to turn bold ideas into production-ready software.
               </p>
 

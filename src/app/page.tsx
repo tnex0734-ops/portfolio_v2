@@ -289,16 +289,16 @@ function HeroSection() {
             </div>
 
             {/* MOBILE HERO VIEW (< md, applies to all mobile resolutions from 320px to 767px) */}
-            <div className="flex md:hidden flex-col items-center justify-center py-4 xs:py-6 relative select-none w-full">
+            <div className="flex md:hidden flex-col items-center justify-center py-3 xs:py-5 relative select-none w-full">
               {/* 1. TEXT ON TOP: Large, high-impact PORTFOLIO title */}
-              <div className="text-center display-font text-[#e52424] font-black leading-[0.78] tracking-tighter text-[5.2rem] xs:text-[6.2rem] sm:text-[7.5rem]">
+              <div className="text-center display-font text-[#e52424] font-black leading-[0.78] tracking-tighter text-[4.2rem] xs:text-[5.4rem] sm:text-[7.2rem]">
                 <div className="tracking-tight">PORT</div>
                 <div className="tracking-tight mt-1">FOLIO</div>
               </div>
 
               {/* 2. IMAGE BELOW TEXT: Large, prominent character illustration */}
               <motion.div
-                className="relative z-10 w-[240px] xs:w-[270px] sm:w-[320px] max-w-[85%] mt-5 xs:mt-7 mix-blend-multiply"
+                className="relative z-10 w-[210px] xs:w-[250px] sm:w-[300px] max-w-[85%] mt-4 xs:mt-6 mix-blend-multiply"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{
                   y: [0, -6, 0],

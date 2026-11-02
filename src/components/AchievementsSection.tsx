@@ -240,10 +240,10 @@ export function AchievementsSection() {
             {achievements.map((item, index) => (
               <article
                 key={item.id}
-                className="w-[84vw] max-w-[840px] h-[60vh] sm:h-[62vh] max-h-[460px] shrink-0 rounded-2xl sm:rounded-3xl border-2 border-[var(--ink)] bg-white shadow-[8px_8px_0_#220608] overflow-hidden grid grid-cols-1 md:grid-cols-2"
+                className="w-[88vw] sm:w-[84vw] max-w-[840px] h-[64vh] sm:h-[62vh] max-h-[480px] shrink-0 rounded-2xl sm:rounded-3xl border-2 border-[var(--ink)] bg-white shadow-[6px_6px_0_#220608] sm:shadow-[8px_8px_0_#220608] overflow-hidden flex flex-col md:grid md:grid-cols-2"
               >
                 {/* LEFT HALF: Solid Red (#e52424) with Bold Typography & Metrics */}
-                <div className="relative flex flex-col justify-between p-5 sm:p-7 md:p-8 bg-[#e52424] text-white overflow-hidden">
+                <div className="relative flex-1 flex flex-col justify-between p-3.5 sm:p-7 md:p-8 bg-[#e52424] text-white overflow-hidden min-h-0">
                   {/* Subtle dot matrix texture */}
                   <div
                     className="pointer-events-none absolute inset-0 opacity-15"
@@ -257,36 +257,36 @@ export function AchievementsSection() {
 
                   {/* Top: Event Metadata & Headline */}
                   <div className="relative z-10">
-                    <div className="flex flex-wrap items-center gap-2 mb-2 sm:mb-2.5">
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[10px] sm:text-xs font-black uppercase tracking-wider bg-black/25 backdrop-blur-sm text-white px-2.5 py-0.5 rounded-full border border-white/20">
-                        <Trophy size={12} className="text-yellow-300" />
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
+                      <span className="inline-flex items-center gap-1 sm:gap-1.5 font-mono text-[9px] sm:text-xs font-black uppercase tracking-wider bg-black/25 backdrop-blur-sm text-white px-2 py-0.5 rounded-full border border-white/20">
+                        <Trophy size={11} className="text-yellow-300" />
                         {item.tag}
                       </span>
-                      <span className="font-mono text-[10px] sm:text-xs font-black text-white/90 bg-white/15 px-2 py-0.5 rounded-full">
+                      <span className="font-mono text-[9px] sm:text-xs font-black text-white/90 bg-white/15 px-2 py-0.5 rounded-full">
                         {item.badge}
                       </span>
-                      <span className="font-mono text-[10px] sm:text-xs font-bold text-white/70 ml-auto">
+                      <span className="font-mono text-[9px] sm:text-xs font-bold text-white/70 ml-auto">
                         0{index + 1} / 04
                       </span>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-[1.08] mt-1 sm:mt-1.5">
+                    <h3 className="text-base sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
                       {item.headline}
                     </h3>
 
-                    <p className="mt-2 text-[11px] sm:text-xs md:text-sm text-white/90 leading-relaxed font-normal line-clamp-3 sm:line-clamp-none">
+                    <p className="mt-1 sm:mt-2 text-[10px] sm:text-xs md:text-sm text-white/90 leading-relaxed font-normal line-clamp-2 sm:line-clamp-none">
                       {item.description}
                     </p>
                   </div>
 
                   {/* Bottom: The Big Bold Metrics */}
-                  <div className="relative z-10 pt-3 border-t border-white/20 grid grid-cols-2 gap-3 sm:gap-4">
+                  <div className="relative z-10 pt-2 sm:pt-3 border-t border-white/20 grid grid-cols-2 gap-2 sm:gap-4 mt-1 sm:mt-0">
                     {item.metrics.map((metric, idx) => (
                       <div key={idx} className="flex flex-col">
-                        <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-none">
+                        <span className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-none">
                           {metric.value}
                         </span>
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white/85 mt-1">
+                        <span className="text-[9px] sm:text-xs font-bold uppercase tracking-wider text-white/85 mt-0.5">
                           {metric.label}
                         </span>
                       </div>
@@ -295,11 +295,11 @@ export function AchievementsSection() {
                 </div>
 
                 {/* RIGHT HALF: Full-Bleed Artwork on Sketch Paper Tone (#fef7f7) */}
-                <div className="relative w-full h-full bg-[#fef7f7] flex items-center justify-center overflow-hidden border-t-2 md:border-t-0 md:border-l-2 border-[var(--ink)]">
+                <div className="relative w-full h-36 xs:h-44 sm:h-52 md:h-full bg-[#fef7f7] flex items-center justify-center overflow-hidden border-t-2 md:border-t-0 md:border-l-2 border-[var(--ink)] shrink-0">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-contain p-3 sm:p-5"
+                    className="w-full h-full object-contain p-2 sm:p-5"
                     loading="eager"
                   />
                 </div>

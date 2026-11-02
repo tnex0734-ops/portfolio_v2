@@ -17,7 +17,15 @@ export function ContactLetterSection({ defaultOpen = false }: { defaultOpen?: bo
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const autoOpenTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Auto-open in 6 seconds if the user does not click
   useEffect(() => {
@@ -170,7 +178,7 @@ export function ContactLetterSection({ defaultOpen = false }: { defaultOpen?: bo
             initial={false}
             animate={
               isOpen
-                ? { y: -220, opacity: 1, scale: 1, display: "block" }
+                ? { y: isMobile ? -145 : -220, opacity: 1, scale: 1, display: "block" }
                 : { y: 60, opacity: 0, scale: 0.95, transitionEnd: { display: "none" } }
             }
             transition={{
@@ -178,7 +186,7 @@ export function ContactLetterSection({ defaultOpen = false }: { defaultOpen?: bo
               stiffness: 90,
               damping: 16,
             }}
-            whileHover={isOpen ? { y: -230 } : {}}
+            whileHover={isOpen ? { y: isMobile ? -150 : -230 } : {}}
             className="relative z-20 w-full rounded-2xl sm:rounded-3xl border-2 border-[var(--ink)] bg-[#b8c79c] text-neutral-950 shadow-[0_24px_70px_rgba(0,0,0,0.22)] overflow-hidden"
             style={{
               backgroundImage: "linear-gradient(to bottom, #bccca0, #b4c398)",
@@ -249,7 +257,7 @@ export function ContactLetterSection({ defaultOpen = false }: { defaultOpen?: bo
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 self-start sm:self-auto shrink-0 mt-2 sm:mt-0 pl-[52px] sm:pl-0 flex-wrap">
+                  <div className="flex items-center gap-2 self-start sm:self-auto shrink-0 mt-2 sm:mt-0 pl-0 sm:pl-0 w-full sm:w-auto justify-start sm:justify-end flex-wrap">
                     {track.copyValue && (
                       <button
                         onClick={(e) => handleCopy(e, track.copyValue!, track.id)}

@@ -172,13 +172,17 @@ export function ExperienceBooksSection({ defaultActiveIndex = null }: { defaultA
                     <h3 className="font-extrabold text-base sm:text-xl md:text-2xl uppercase tracking-wider text-white truncate drop-shadow-sm">
                       {item.company}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-2 mt-1">
-                      <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white/95 bg-black/30 px-2 py-0.5 rounded">
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-1">
+                      <span className="font-mono text-[11px] sm:text-sm font-bold uppercase tracking-wider text-white/95 bg-black/30 px-2 py-0.5 rounded">
                         {item.date}
                       </span>
                       <span className="text-white/40 text-xs hidden sm:inline">&bull;</span>
                       <span className="hidden sm:inline font-mono text-xs text-white/80 font-medium truncate">
                         {style.subText}
+                      </span>
+                      {/* Mobile Visible Role Pill */}
+                      <span className="inline-block sm:hidden font-mono text-[9.5px] text-white/90 font-bold uppercase tracking-wider bg-white/15 px-1.5 py-0.5 rounded truncate max-w-[150px]">
+                        {item.role}
                       </span>
                     </div>
                   </div>
