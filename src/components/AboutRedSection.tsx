@@ -277,7 +277,7 @@ export function AboutRedSection() {
               {/* Clean Pill Badges Featuring Vibe Coding */}
               <div className="pt-4 border-t border-white/20 flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[#e52424] font-mono text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-sm">
-                  <Sparkle size={12} fill="currentColor" />
+                  <motion.span animate={{ rotate: 360 }} transition={{ duration: 6, repeat: Infinity, ease: "linear" }} className="inline-block origin-center"><Sparkle size={12} fill="currentColor" /></motion.span>
                   <span>Vibe Coding</span>
                 </span>
 

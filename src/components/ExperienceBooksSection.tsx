@@ -7,7 +7,7 @@ import { experience } from "@/lib/content";
 
 export function ExperienceBooksSection({ defaultActiveIndex = null }: { defaultActiveIndex?: number | null } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: false, amount: 0.15 });
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
   const [mounted, setMounted] = useState(false);
   const [activeBookmarkIndex, setActiveBookmarkIndex] = useState<number | null>(defaultActiveIndex);
 
@@ -92,13 +92,23 @@ export function ExperienceBooksSection({ defaultActiveIndex = null }: { defaultA
         </div>
       </div>
 
-      {/* Decorative ambient background accents */}
-      <div className="pointer-events-none absolute left-8 top-12 text-[#e52424]/10" aria-hidden="true">
+      {/* Decorative ambient background accents with continuous rotation */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute left-8 top-12 text-[#e52424]/10"
+        aria-hidden="true"
+      >
         <Sparkle size={64} />
-      </div>
-      <div className="pointer-events-none absolute right-12 bottom-12 text-[#e52424]/10" aria-hidden="true">
+      </motion.div>
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute right-12 bottom-12 text-[#e52424]/10"
+        aria-hidden="true"
+      >
         <Star size={72} fill="currentColor" />
-      </div>
+      </motion.div>
 
       <div className="section-shell relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6">
         

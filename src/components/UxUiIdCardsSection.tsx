@@ -395,7 +395,7 @@ export function UxUiIdCardsSection({ onOpenModal }: UxUiIdCardsSectionProps) {
       {/* ── Section Header ── */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-8 sm:mb-12">
         <h3 className="display-font text-3xl sm:text-5xl md:text-6xl font-black uppercase text-[var(--ink)] tracking-tight leading-[1.05]">
-          UX / UI Projects <span className="text-[#e52424]">✦</span> Built to Ship
+          UX / UI Projects <motion.span animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className="inline-block text-[#e52424] origin-center">✦</motion.span> Built to Ship
         </h3>
 
         <p className="mt-3 text-xs sm:text-sm text-[var(--muted)] font-medium max-w-xl mx-auto">
