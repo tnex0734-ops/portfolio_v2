@@ -131,16 +131,9 @@ const TOOLS_CASCADE: SpilledTool[] = [
 
 export function ToolsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  // once: true prevents unmounting / scroll-flicker
-  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
-  const [mounted, setMounted] = useState(false);
+  // once: true ensures tools emerge once with high impact and remain stable
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const showSpill = isInView || mounted;
 
   return (
     <section
@@ -159,24 +152,30 @@ export function ToolsSection() {
         }}
       />
 
-      {/* Signature Red Dot Marker in upper left (exact detail from Attachment 2) */}
-      <div
+      {/* Signature Red Dot Marker in upper left with gentle kinetic pulse */}
+      <motion.div
+        animate={{ scale: [1, 1.25, 1], opacity: [0.8, 1, 0.8] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-10 left-8 sm:top-14 sm:left-14 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#e52424] pointer-events-none select-none z-0 shadow-sm"
         aria-hidden="true"
       />
 
-      {/* ── BOLD CORNER EDGE JUNCTIONS & GEOMETRICAL SHAPES ── */}
+      {/* ── BOLD CORNER EDGE JUNCTIONS WITH CONTINUOUS ROTATION ── */}
       <div className="pointer-events-none absolute top-8 right-6 sm:right-10 z-0 opacity-40 hidden sm:block" aria-hidden="true">
-        <div className="relative w-14 h-14 border-2 border-[#141416]">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="relative w-14 h-14 border-2 border-[#141416]"
+        >
           <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#e52424]" />
           <div className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 bg-[#141416]" />
           <div className="absolute inset-1.5 border border-dashed border-[#e52424]" />
-        </div>
+        </motion.div>
       </div>
 
       <div className="section-shell max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
-        {/* Section Header: Clean bold heading (NO monospace eyebrow labels) */}
+        {/* Section Header: Clean bold heading */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
           <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#141416] leading-[1.08]">
             <span className="font-editorial-italic font-normal block sm:inline">What </span>
@@ -190,26 +189,33 @@ export function ToolsSection() {
             </span>
           </h2>
           <p className="mt-3 text-xs sm:text-sm text-[#606068] font-medium max-w-md mx-auto leading-relaxed">
-            As you reach this workstation, my core tools spill out from inside the laptop and cascade across the deck.
+            As you reach this workstation, my core tools spill out from behind the laptop and cascade across the deck.
           </p>
         </div>
 
-        {/* ── THE WORKSTATION SPILL STAGE (Exact replica of Attachment 2 reference) ── */}
+        {/* ── THE WORKSTATION SPILL STAGE ── */}
         <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center min-h-[580px] sm:min-h-[640px] pt-4">
           
-          {/* 1. Tilted Isometric Stylized Laptop */}
-          <div className="relative z-10 pointer-events-auto">
+          {/* 1. Tilted Isometric Stylized Laptop with Subtle Idle Floating Breathe */}
+          <div className="relative z-20 pointer-events-auto">
             <motion.div
-              initial={false}
-              animate={{
-                rotateX: 18,
-                rotateZ: -4,
-                rotateY: 3,
-                scale: 1,
-              }}
+              initial={{ rotateX: 28, y: -20, opacity: 0 }}
+              animate={
+                isInView
+                  ? {
+                      rotateX: 18,
+                      rotateZ: -4,
+                      rotateY: 3,
+                      y: [0, -6, 0],
+                      opacity: 1,
+                    }
+                  : { rotateX: 28, y: -20, opacity: 0 }
+              }
               transition={{
                 rotateX: { type: "spring", stiffness: 85, damping: 15 },
                 rotateZ: { type: "spring", stiffness: 85, damping: 15 },
+                opacity: { duration: 0.5 },
+                y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
               }}
               style={{
                 perspective: 1200,
@@ -227,7 +233,7 @@ export function ToolsSection() {
                     <span className="w-2 h-2 rounded-full bg-[#22c55e]" />
                   </div>
                   <span className="tracking-wide">macbook-pro // taushik.space</span>
-                  <div className="w-2 h-2 rounded-full bg-[#e52424]" />
+                  <div className="w-2 h-2 rounded-full bg-[#e52424] animate-pulse" />
                 </div>
 
                 {/* Screen Display with Red Grid Lines */}
@@ -261,41 +267,59 @@ export function ToolsSection() {
             </motion.div>
           </div>
 
-          {/* 2. THE 8 TOOL PILLS SPILLING OUT AND CASCADING UNDERNEATH THE LAPTOP */}
+          {/* 2. THE 8 TOOL PILLS: PHYSICALLY EMERGE OUT FROM BEHIND THE LAPTOP */}
           {/* DESKTOP CASCADE VIEW (sm and up) */}
-          <div className="hidden sm:block absolute top-[230px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
+          <div className="hidden sm:block absolute top-[210px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
             {TOOLS_CASCADE.map((tool, index) => {
               const isHovered = hoveredTool === tool.name;
 
               return (
                 <motion.div
                   key={tool.name}
-                  initial={false}
-                  animate={{
-                    x: tool.x,
-                    y: tool.y,
-                    scale: isHovered ? 1.08 : 1,
-                    opacity: 1,
-                    rotate: isHovered ? 0 : tool.rotation,
+                  initial={{
+                    x: 0,
+                    y: -60,
+                    scale: 0.15,
+                    opacity: 0,
+                    rotate: 0,
                   }}
+                  animate={
+                    isInView
+                      ? {
+                          x: tool.x,
+                          y: tool.y,
+                          scale: isHovered ? 1.08 : 1,
+                          opacity: 1,
+                          rotate: isHovered ? 0 : tool.rotation,
+                        }
+                      : {
+                          x: 0,
+                          y: -60,
+                          scale: 0.15,
+                          opacity: 0,
+                          rotate: 0,
+                        }
+                  }
                   transition={{
                     type: "spring",
-                    stiffness: 110,
-                    damping: 14,
-                    delay: index * 0.03,
+                    stiffness: 90,
+                    damping: 13,
+                    mass: 0.8,
+                    delay: 0.25 + index * 0.08, // Staggered explosive emergence from behind the laptop!
                   }}
                   onMouseEnter={() => setHoveredTool(tool.name)}
                   onMouseLeave={() => setHoveredTool(null)}
                   style={{
-                    zIndex: isHovered ? 50 : tool.zIndex,
+                    zIndex: isHovered ? 60 : tool.zIndex,
                   }}
                   className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer"
                 >
-                  <div
+                  <motion.div
+                    whileHover={{ y: -5, scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
                     className="flex items-center gap-3 px-4 py-2.5 rounded-2xl border-2 border-[#141416] shadow-[4px_4px_0_#141416] hover:shadow-[6px_6px_0_#e52424] hover:border-[#e52424] transition-all duration-200 select-none whitespace-nowrap"
                     style={{
                       backgroundColor: tool.bgTint,
-                      transform: isHovered ? "translateY(-4px)" : "none",
                     }}
                   >
                     {/* Brand Icon Box */}
@@ -315,43 +339,61 @@ export function ToolsSection() {
                         {tool.category}
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
           </div>
 
-          {/* MOBILE CASCADE VIEW (< sm, tailored responsive scale) */}
-          <div className="sm:hidden absolute top-[190px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
+          {/* MOBILE CASCADE VIEW (< sm, tailored responsive scale + emergence) */}
+          <div className="sm:hidden absolute top-[180px] left-1/2 -translate-x-1/2 w-0 h-0 pointer-events-none">
             {TOOLS_CASCADE.map((tool, index) => {
               const isHovered = hoveredTool === tool.name;
 
               return (
                 <motion.div
                   key={`mobile-${tool.name}`}
-                  initial={false}
-                  animate={{
-                    x: tool.mobileX,
-                    y: tool.mobileY,
-                    scale: isHovered ? 1.05 : 0.9,
-                    opacity: 1,
-                    rotate: isHovered ? 0 : tool.mobileRotate,
+                  initial={{
+                    x: 0,
+                    y: -50,
+                    scale: 0.15,
+                    opacity: 0,
+                    rotate: 0,
                   }}
+                  animate={
+                    isInView
+                      ? {
+                          x: tool.mobileX,
+                          y: tool.mobileY,
+                          scale: isHovered ? 1.05 : 0.9,
+                          opacity: 1,
+                          rotate: isHovered ? 0 : tool.mobileRotate,
+                        }
+                      : {
+                          x: 0,
+                          y: -50,
+                          scale: 0.15,
+                          opacity: 0,
+                          rotate: 0,
+                        }
+                  }
                   transition={{
                     type: "spring",
-                    stiffness: 110,
-                    damping: 14,
-                    delay: index * 0.03,
+                    stiffness: 90,
+                    damping: 13,
+                    mass: 0.8,
+                    delay: 0.2 + index * 0.07,
                   }}
                   onTouchStart={() => setHoveredTool(tool.name)}
                   onMouseEnter={() => setHoveredTool(tool.name)}
                   onMouseLeave={() => setHoveredTool(null)}
                   style={{
-                    zIndex: isHovered ? 50 : tool.zIndex,
+                    zIndex: isHovered ? 60 : tool.zIndex,
                   }}
                   className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer"
                 >
-                  <div
+                  <motion.div
+                    whileTap={{ scale: 0.94 }}
                     className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border-2 border-[#141416] shadow-[3px_3px_0_#141416] select-none whitespace-nowrap"
                     style={{
                       backgroundColor: tool.bgTint,
@@ -371,7 +413,7 @@ export function ToolsSection() {
                         {tool.category}
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}

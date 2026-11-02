@@ -198,19 +198,23 @@ function HeroSection() {
             <div className="relative flex items-center justify-between text-[#e52424] font-black text-[9px] xs:text-[10px] sm:text-xs md:text-sm tracking-wider uppercase mb-2 sm:mb-3 px-1 sm:px-2">
               <span className="flex items-center gap-1 sm:gap-2 font-bold">
                 TAUSHIK CHANDANA
-                <span className="w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block" />
+                <motion.span animate={{ scale: [1, 1.4, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block shadow-xs" />
               </span>
               <div className="flex-1 mx-1.5 sm:mx-6 h-[1.5px] bg-[#e52424]" />
               <span className="flex items-center gap-1 sm:gap-2 font-bold">
-                <span className="w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block" />
+                <motion.span animate={{ scale: [1, 1.4, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block shadow-xs" />
                 2026
               </span>
             </div>
 
             {/* DESKTOP HERO VIEW (md and up) */}
             <div className="hidden md:flex relative items-center justify-center min-h-[420px] lg:min-h-[480px]">
-              {/* Left Side Typography: P O / F O */}
-              <div className="z-10 flex flex-col justify-between items-end text-[#e52424] display-font select-none md:mr-[-40px] lg:mr-[-70px]">
+              {/* Left Side Typography: P O / F O with subtle ambient drift */}
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="z-10 flex flex-col justify-between items-end text-[#e52424] display-font select-none md:mr-[-40px] lg:mr-[-70px]"
+              >
                 <div className="flex gap-2 text-[8rem] lg:text-[11rem] xl:text-[13rem] font-black leading-[0.78] tracking-tighter">
                   <span>P</span>
                   <span>O</span>
@@ -219,16 +223,24 @@ function HeroSection() {
                   <span>F</span>
                   <span>O</span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Center Column: Character Illustration */}
               <div className="relative z-20 flex flex-col items-center justify-center shrink-0 my-[-25px]">
                 <motion.div
                   className="w-[280px] md:w-[340px] lg:w-[420px] shrink-0 mix-blend-multiply"
                   initial={{ y: 50, opacity: 0, scale: 0.9 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.25, ease: softEase }}
-                  whileHover={{ scale: 1.04 }}
+                  animate={{
+                    y: [0, -8, 0],
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  transition={{
+                    y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                    opacity: { duration: 0.8, delay: 0.25, ease: softEase },
+                    scale: { duration: 0.8, delay: 0.25, ease: softEase },
+                  }}
+                  whileHover={{ scale: 1.05, y: -12 }}
                 >
                   <img
                     src="/character_straight.png"
@@ -258,8 +270,12 @@ function HeroSection() {
                 </motion.div>
               </div>
 
-              {/* Right Side Typography: R T / L I O */}
-              <div className="z-10 flex flex-col justify-between items-start text-[#e52424] display-font select-none md:ml-[-40px] lg:ml-[-70px]">
+              {/* Right Side Typography: R T / L I O with subtle ambient drift */}
+              <motion.div
+                animate={{ y: [0, 5, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="z-10 flex flex-col justify-between items-start text-[#e52424] display-font select-none md:ml-[-40px] lg:ml-[-70px]"
+              >
                 <div className="flex gap-2 text-[8rem] lg:text-[11rem] xl:text-[13rem] font-black leading-[0.78] tracking-tighter">
                   <span>R</span>
                   <span>T</span>
@@ -269,7 +285,7 @@ function HeroSection() {
                   <span>I</span>
                   <span>O</span>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* MOBILE HERO VIEW (< md, applies to all mobile resolutions from 320px to 767px) */}
@@ -284,8 +300,14 @@ function HeroSection() {
               <motion.div
                 className="relative z-10 w-[240px] xs:w-[270px] sm:w-[320px] max-w-[85%] mt-5 xs:mt-7 mix-blend-multiply"
                 initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6 }}
+                animate={{
+                  y: [0, -6, 0],
+                  opacity: 1,
+                }}
+                transition={{
+                  y: { duration: 4.2, repeat: Infinity, ease: "easeInOut" },
+                  opacity: { duration: 0.6 },
+                }}
               >
                 <img
                   src="/character_straight.png"
@@ -318,11 +340,11 @@ function HeroSection() {
             <div className="relative flex items-center justify-between text-[#e52424] font-black text-[9px] xs:text-[10px] sm:text-xs md:text-sm tracking-wider uppercase mt-4 sm:mt-6 px-1 sm:px-2">
               <span className="flex items-center gap-1 sm:gap-2 font-bold">
                 UI/UX DESIGNER
-                <span className="w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block" />
+                <motion.span animate={{ scale: [1, 1.4, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block shadow-xs" />
               </span>
               <div className="flex-1 mx-1.5 sm:mx-6 h-[1.5px] bg-[#e52424]" />
               <span className="flex items-center gap-1 sm:gap-2 font-bold">
-                <span className="w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block" />
+                <motion.span animate={{ scale: [1, 1.4, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#e52424] inline-block shadow-xs" />
                 PRODUCT DESIGNER
               </span>
             </div>
@@ -630,9 +652,14 @@ function AiProductsSection() {
 
           {/* Symmetrical Flanking Layout: Hands emerge from screen edges and stop before the card */}
           <div className="relative w-full max-w-[1880px] mx-auto flex items-center justify-center">
-            {/* Left Hand: Emerging from left screen edge pointing at the card */}
+            {/* Left Hand: Emerging from left screen edge pointing at the card with rhythmic drift */}
             <div className="hidden lg:flex flex-1 items-center justify-end pr-2 lg:pr-3 2xl:pr-6 pointer-events-none select-none overflow-hidden">
-              <AsciiHandLeft />
+              <motion.div
+                animate={{ x: [0, 8, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <AsciiHandLeft />
+              </motion.div>
             </div>
 
             {/* Central UI Showcase Card */}
@@ -640,9 +667,14 @@ function AiProductsSection() {
               <AiProjectShowcase />
             </div>
 
-            {/* Right Hand: Emerging from right screen edge pointing at the card */}
+            {/* Right Hand: Emerging from right screen edge pointing at the card with rhythmic drift */}
             <div className="hidden lg:flex flex-1 items-center justify-start pl-2 lg:pl-3 2xl:pl-6 pointer-events-none select-none overflow-hidden">
-              <AsciiHandRight />
+              <motion.div
+                animate={{ x: [0, -8, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
+              >
+                <AsciiHandRight />
+              </motion.div>
             </div>
           </div>
         </div>

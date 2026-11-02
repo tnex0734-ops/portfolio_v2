@@ -15,11 +15,12 @@ export function PixelSunflower({ className }: { className?: string }) {
     <motion.svg
       viewBox="0 0 22 40"
       className={cn(
-        "w-6 h-11 sm:w-8 sm:h-14 md:w-10 md:h-18 lg:w-12 lg:h-22 select-none overflow-visible inline-block",
+        "w-6 h-11 sm:w-8 sm:h-14 md:w-10 md:h-18 lg:w-12 lg:h-22 select-none overflow-visible inline-block origin-bottom",
         className
       )}
-      whileHover={{ scale: 1.18, rotate: [0, -6, 6, 0] }}
-      transition={{ duration: 0.3 }}
+      animate={{ rotate: [-2.5, 2.5, -2.5] }}
+      transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+      whileHover={{ scale: 1.2, rotate: [0, -8, 8, 0] }}
       shapeRendering="crispEdges"
     >
       {/* ── Sunflower Petals (Yellow #ffd000) ── */}
@@ -62,9 +63,10 @@ export function PixelTulipRed({ className }: { className?: string }) {
   return (
     <motion.svg
       viewBox="0 0 10 16"
-      className={cn("w-4 h-6 sm:w-5 sm:h-8 select-none overflow-visible", className)}
+      className={cn("w-4 h-6 sm:w-5 sm:h-8 select-none overflow-visible origin-bottom", className)}
+      animate={{ rotate: [-2, 2, -2] }}
+      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
       whileHover={{ scale: 1.25, y: -2 }}
-      transition={{ duration: 0.2 }}
       shapeRendering="crispEdges"
     >
       <rect x="3" y="0" width="4" height="2" fill="#ef4444" />
@@ -83,9 +85,10 @@ export function PixelTulipYellow({ className }: { className?: string }) {
   return (
     <motion.svg
       viewBox="0 0 10 16"
-      className={cn("w-4 h-6 sm:w-5 sm:h-8 select-none overflow-visible", className)}
+      className={cn("w-4 h-6 sm:w-5 sm:h-8 select-none overflow-visible origin-bottom", className)}
+      animate={{ rotate: [2, -2, 2] }}
+      transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
       whileHover={{ scale: 1.25, y: -2 }}
-      transition={{ duration: 0.2 }}
       shapeRendering="crispEdges"
     >
       <rect x="3" y="0" width="4" height="2" fill="#ffd000" />
@@ -255,13 +258,19 @@ export function AboutRedSection() {
           className="mt-10 sm:mt-14 max-w-5xl mx-auto rounded-3xl border-2 border-white/35 bg-white/10 backdrop-blur-sm p-6 sm:p-8 lg:p-10 shadow-lg"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            {/* The Sketch of Taushik with laptop */}
+            {/* The Sketch of Taushik with laptop with gentle breathing float */}
             <div className="lg:col-span-5 flex justify-center w-full">
-              <img
-                src="/taushik_laptop_sketch.png"
-                alt="Taushik Chandana sitting relaxed with laptop sketch"
-                className="w-full max-w-[320px] sm:max-w-[360px] h-auto object-contain select-none pointer-events-none"
-              />
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+                className="w-full max-w-[320px] sm:max-w-[360px]"
+              >
+                <img
+                  src="/taushik_laptop_sketch.png"
+                  alt="Taushik Chandana sitting relaxed with laptop sketch"
+                  className="w-full h-auto object-contain select-none pointer-events-none"
+                />
+              </motion.div>
             </div>
 
             {/* The Descriptive Narrative & Pill Badges */}

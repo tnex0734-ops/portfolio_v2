@@ -87,39 +87,63 @@ export function AchievementsSection() {
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden px-4 sm:px-8 lg:px-12 py-3 sm:py-6 relative">
         
         {/* ── GEOMETRICAL SHAPES ON LEFT SIDE ── */}
-        {/* ── BOLD GEOMETRICAL SHAPES ON LEFT SIDE ── */}
+        {/* ── BOLD KINETIC GEOMETRICAL INSTRUMENTS ON LEFT SIDE ── */}
         <div
           className="pointer-events-none absolute left-3 lg:left-6 top-1/2 -translate-y-1/2 z-0 hidden sm:flex flex-col items-center gap-7 opacity-45"
           aria-hidden="true"
         >
-          {/* Large Wireframe isometric cube / hexagon */}
-          <svg className="w-16 h-16 text-[#e52424]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3">
+          {/* Large Wireframe isometric cube with slow 360 rotation */}
+          <motion.svg
+            animate={{ rotate: 360 }}
+            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 text-[#e52424]"
+            viewBox="0 0 100 100"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+          >
             <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" />
             <line x1="50" y1="5" x2="50" y2="50" />
             <line x1="50" y1="50" x2="95" y2="72.5" />
             <line x1="50" y1="50" x2="5" y2="72.5" />
-          </svg>
+          </motion.svg>
 
-          {/* Large Target circle with crosshairs */}
-          <div className="relative w-14 h-14 rounded-full border-2 border-dashed border-[#141416] flex items-center justify-center">
+          {/* Large Target circle with counter-rotation */}
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+            className="relative w-14 h-14 rounded-full border-2 border-dashed border-[#141416] flex items-center justify-center"
+          >
             <div className="w-4 h-4 rounded-full bg-[#e52424]" />
             <div className="absolute w-full h-[1.5px] bg-[#141416]" />
             <div className="absolute h-full w-[1.5px] bg-[#141416]" />
-          </div>
+          </motion.div>
 
-          {/* Large Nested diamond */}
-          <div className="w-12 h-12 rotate-45 border-2 border-[#141416] flex items-center justify-center">
+          {/* Large Nested diamond with subtle scaling pulse */}
+          <motion.div
+            animate={{ scale: [1, 1.12, 1] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-12 h-12 rotate-45 border-2 border-[#141416] flex items-center justify-center"
+          >
             <div className="w-6 h-6 border-2 border-[#e52424]" />
-          </div>
+          </motion.div>
         </div>
 
-        {/* ── BOLD GEOMETRICAL SHAPES ON RIGHT SIDE ── */}
+        {/* ── BOLD KINETIC GEOMETRICAL INSTRUMENTS ON RIGHT SIDE ── */}
         <div
           className="pointer-events-none absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 z-0 hidden sm:flex flex-col items-center gap-7 opacity-45"
           aria-hidden="true"
         >
-          {/* Large Concentric circles with tick marks */}
-          <svg className="w-16 h-16 text-[#141416]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+          {/* Large Concentric circles with slow rotation */}
+          <motion.svg
+            animate={{ rotate: 360 }}
+            transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 text-[#141416]"
+            viewBox="0 0 100 100"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
             <circle cx="50" cy="50" r="45" />
             <circle cx="50" cy="50" r="28" strokeDasharray="4 4" />
             <circle cx="50" cy="50" r="12" fill="#e52424" />
@@ -127,20 +151,32 @@ export function AchievementsSection() {
             <line x1="50" y1="90" x2="50" y2="100" />
             <line x1="0" y1="50" x2="10" y2="50" />
             <line x1="90" y1="50" x2="100" y2="50" />
-          </svg>
+          </motion.svg>
 
-          {/* Stepped diagonal grid */}
-          <div className="flex flex-col gap-1.5">
+          {/* Stepped diagonal grid with subtle horizontal shift */}
+          <motion.div
+            animate={{ x: [0, 6, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col gap-1.5"
+          >
             <div className="w-12 h-2 bg-[#e52424]" />
             <div className="w-10 h-2 bg-[#141416] ml-2" />
             <div className="w-8 h-2 bg-[#e52424] ml-4" />
-          </div>
+          </motion.div>
 
-          {/* Geometric Triangle */}
-          <svg className="w-12 h-12 text-[#141416]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3">
+          {/* Geometric Triangle with floating breathing drift */}
+          <motion.svg
+            animate={{ y: [0, -6, 0], rotate: [-2, 2, -2] }}
+            transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-12 h-12 text-[#141416]"
+            viewBox="0 0 100 100"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+          >
             <polygon points="50,10 90,90 10,90" />
             <circle cx="50" cy="60" r="10" fill="#e52424" />
-          </svg>
+          </motion.svg>
         </div>
 
         {/* Subtle decorative background watermark */}

@@ -105,20 +105,28 @@ export function ContactLetterSection({ defaultOpen = false }: { defaultOpen?: bo
       ref={containerRef}
       className="relative overflow-hidden bg-[var(--paper)] pt-16 sm:pt-24 pb-0 select-none scroll-mt-16"
     >
-      {/* ── BOLD CORNER EDGE JUNCTION GEOMETRIC SHAPES ── */}
+      {/* ── BOLD KINETIC CORNER EDGE JUNCTIONS WITH SLOW ROTATION ── */}
       <div className="pointer-events-none absolute top-8 left-8 z-0 hidden lg:block opacity-40" aria-hidden="true">
-        <div className="relative w-16 h-16 border-2 border-[#141416]">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          className="relative w-16 h-16 border-2 border-[#141416]"
+        >
           <div className="absolute -top-1.5 -left-1.5 w-3 h-3 bg-[#e52424]" />
           <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-[#141416]" />
           <div className="absolute inset-2 border border-dashed border-[#e52424]" />
-        </div>
+        </motion.div>
       </div>
       <div className="pointer-events-none absolute top-8 right-8 z-0 hidden lg:block opacity-40" aria-hidden="true">
-        <div className="relative w-16 h-16 border-2 border-[#141416]">
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          className="relative w-16 h-16 border-2 border-[#141416]"
+        >
           <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-[#e52424]" />
           <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-[#141416]" />
           <div className="absolute inset-2 border border-dashed border-[#e52424]" />
-        </div>
+        </motion.div>
       </div>
 
       {/* Background ambient accents */}

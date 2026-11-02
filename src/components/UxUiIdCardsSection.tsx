@@ -131,19 +131,24 @@ function SingleIdCard({ project, index, onLaunch }: SingleIdCardProps) {
         </div>
       </div>
 
-      {/* ── 2. The 3D Flipping ID Card Container ── */}
+      {/* ── 2. The 3D Flipping ID Card Container with Natural Pendulum Sway ── */}
       <motion.div
         animate={{
-          rotateZ: isHovered ? 0 : idleRotate,
-          y: isHovered ? -8 : 0,
+          rotateZ: isHovered
+            ? 0
+            : [idleRotate - 0.75, idleRotate + 0.75, idleRotate - 0.75],
+          y: isHovered ? -8 : [0, -3, 0],
           scale: isHovered ? 1.02 : 1,
         }}
         transition={{
-          type: "spring",
-          stiffness: 240,
-          damping: 22,
+          rotateZ: isHovered
+            ? { type: "spring", stiffness: 240, damping: 22 }
+            : { duration: 4.8 + index * 0.6, repeat: Infinity, ease: "easeInOut" },
+          y: isHovered
+            ? { type: "spring", stiffness: 240, damping: 22 }
+            : { duration: 3.6 + index * 0.5, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="relative w-full h-[480px] sm:h-[510px] cursor-pointer"
+        className="relative w-full h-[480px] sm:h-[510px] cursor-pointer origin-top"
         onClick={toggleFlip}
       >
         {/* 3D Flipping Flipper */}

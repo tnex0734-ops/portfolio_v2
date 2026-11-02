@@ -206,14 +206,18 @@ export function ExperienceBooksSection({ defaultActiveIndex = null }: { defaultA
                 >
                   <motion.div
                     animate={{
-                      x: isHovered ? 6 : 0,
+                      x: isHovered ? 6 : [0, 3, 0],
+                      rotate: isHovered ? 0 : [-1.5, 1.5, -1.5],
                     }}
                     transition={{
-                      type: "spring",
-                      stiffness: 280,
-                      damping: 24,
+                      x: isHovered
+                        ? { type: "spring", stiffness: 280, damping: 24 }
+                        : { duration: 3.2 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+                      rotate: isHovered
+                        ? { duration: 0.2 }
+                        : { duration: 3.6 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
                     }}
-                    className="relative flex items-center filter drop-shadow-[3px_3px_0_#141416]"
+                    className="relative flex items-center filter drop-shadow-[3px_3px_0_#141416] origin-right"
                   >
                     {/* Expandable Body of Ribbon (slides open on hover to reveal role) */}
                     <motion.div
