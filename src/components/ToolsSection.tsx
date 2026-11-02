@@ -9,7 +9,8 @@ interface OrbitTool {
   category: string;
   color: string;
   bgTint: string;
-  // Exact orbital coordinates around the central laptop (origin = center of laptop)
+  side: "left" | "right";
+  // Exact circular arc coordinates flanking the central laptop
   x: number;
   y: number;
   rotation: number;
@@ -33,85 +34,96 @@ function DeltaGlyph({ color }: { color: string }) {
   );
 }
 
-// All 8 tools arranged AROUND the laptop in the center — 100% visible, ZERO obstruction
+// 8 tools arranged in a clean CIRCULAR way flanking the laptop on LEFT and RIGHT sides
+// 4 on the LEFT, 4 on the RIGHT — ZERO elements scattered below the laptop
 const TOOLS_ORBIT: OrbitTool[] = [
+  // ── LEFT FLANK (Circular Arc: Top-Left to Bottom-Left) ──
   {
     name: "FIGMA",
     category: "INTERFACE & PROTOTYPING",
     color: "#10b981",
     bgTint: "#f6fffb",
-    x: -285,
-    y: -75,
-    rotation: -8,
-  },
-  {
-    name: "NEXT.JS",
-    category: "APP ROUTER & SSR",
-    color: "#141416",
-    bgTint: "#fafafa",
-    x: 285,
-    y: -75,
-    rotation: 7,
+    side: "left",
+    x: -315,
+    y: -125,
+    rotation: -6,
   },
   {
     name: "GPT",
     category: "REASONING & PROMPTING",
     color: "#10a37f",
     bgTint: "#f3fbf7",
-    x: -325,
-    y: 20,
-    rotation: -5,
-  },
-  {
-    name: "CLAUDE",
-    category: "DESIGN INTELLIGENCE",
-    color: "#ea580c",
-    bgTint: "#fffdf9",
-    x: 325,
-    y: 20,
-    rotation: 5,
+    side: "left",
+    x: -355,
+    y: -42,
+    rotation: -3,
   },
   {
     name: "LOVABLE",
     category: "VIBE CODING & FULLSTACK",
     color: "#e52424",
     bgTint: "#fff9f9",
-    x: -280,
-    y: 120,
-    rotation: -9,
-  },
-  {
-    name: "CANVA",
-    category: "VISUALS & SOCIAL",
-    color: "#06b6d4",
-    bgTint: "#f5fdfd",
-    x: 280,
-    y: 120,
-    rotation: 8,
+    side: "left",
+    x: -355,
+    y: +45,
+    rotation: -2,
   },
   {
     name: "MIRO",
     category: "WORKSHOPS & MAPPING",
     color: "#eab308",
     bgTint: "#fffdf0",
-    x: -125,
-    y: 175,
-    rotation: 4,
+    side: "left",
+    x: -315,
+    y: +128,
+    rotation: 6,
+  },
+
+  // ── RIGHT FLANK (Circular Arc: Top-Right to Bottom-Right) ──
+  {
+    name: "NEXT.JS",
+    category: "APP ROUTER & SSR",
+    color: "#141416",
+    bgTint: "#fafafa",
+    side: "right",
+    x: 315,
+    y: -125,
+    rotation: 6,
+  },
+  {
+    name: "CLAUDE",
+    category: "DESIGN INTELLIGENCE",
+    color: "#ea580c",
+    bgTint: "#fffdf9",
+    side: "right",
+    x: 355,
+    y: -42,
+    rotation: 3,
+  },
+  {
+    name: "CANVA",
+    category: "VISUALS & SOCIAL",
+    color: "#06b6d4",
+    bgTint: "#f5fdfd",
+    side: "right",
+    x: 355,
+    y: +45,
+    rotation: 2,
   },
   {
     name: "ANTIGRAVITY",
     category: "AGENTIC ENGINEERING",
     color: "#8b5cf6",
     bgTint: "#fbf9ff",
-    x: 125,
-    y: 175,
-    rotation: -4,
+    side: "right",
+    x: 315,
+    y: +128,
+    rotation: -6,
   },
 ];
 
 export function ToolsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Emerges smoothly on scroll and remains rock-solid in place
   const isInView = useInView(containerRef, { once: true, amount: 0.15 });
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
 
@@ -132,11 +144,11 @@ export function ToolsSection() {
         }}
       />
 
-      {/* Signature Red Dot Marker on the RIGHT (exact detail from user reference image) */}
+      {/* Signature Red Dot Marker on the right flank */}
       <motion.div
         animate={{ scale: [1, 1.25, 1], opacity: [0.85, 1, 0.85] }}
         transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute right-6 sm:right-10 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#e52424] pointer-events-none select-none z-0 shadow-sm"
+        className="absolute right-6 sm:right-10 md:right-16 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#e52424] pointer-events-none select-none z-0 shadow-sm"
         aria-hidden="true"
       />
 
@@ -169,12 +181,12 @@ export function ToolsSection() {
             </span>
           </h2>
           <p className="mt-3 text-xs sm:text-sm text-[#606068] font-medium max-w-md mx-auto leading-relaxed">
-            As you reach this workstation, my core tools emerge out from the center and fan around the laptop.
+            As you reach this workstation, my core tools emerge in a circular orbit flanking the laptop on the left and right.
           </p>
         </div>
 
-        {/* ── DESKTOP STAGE: LAPTOP IN CENTER, TOOLS EMERGE OUT & ORBIT AROUND IT ── */}
-        <div className="hidden md:flex relative w-full max-w-5xl mx-auto items-center justify-center min-h-[520px] lg:min-h-[560px] py-6">
+        {/* ── DESKTOP STAGE: LAPTOP IN CENTER, TOOLS ORBIT ON LEFT & RIGHT IN A CIRCULAR WAY ── */}
+        <div className="hidden md:flex relative w-full max-w-5xl mx-auto items-center justify-center min-h-[500px] lg:min-h-[540px] py-4">
           
           {/* Centered Tilted Isometric 3D Laptop */}
           <div className="relative z-10 pointer-events-auto">
@@ -201,7 +213,7 @@ export function ToolsSection() {
                 perspective: 1200,
                 transformStyle: "preserve-3d",
               }}
-              className="relative w-[340px] lg:w-[380px] shadow-2xl cursor-default"
+              className="relative w-[330px] lg:w-[370px] shadow-2xl cursor-default"
             >
               {/* Laptop Screen Assembly */}
               <div className="relative w-full aspect-[16/10] bg-[#141416] rounded-t-2xl border-4 border-[#252528] p-3 shadow-[0_24px_50px_rgba(0,0,0,0.35)] flex flex-col justify-between">
@@ -247,10 +259,12 @@ export function ToolsSection() {
             </motion.div>
           </div>
 
-          {/* ── THE 8 TOOL PILLS: EMERGE RADIAL OUTWARD FROM CENTER AND ORBIT AROUND THE LAPTOP ── */}
+          {/* ── THE 8 TOOL PILLS: EMERGE OUT IN A CIRCULAR WAY ON LEFT & RIGHT SIDES ── */}
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             {TOOLS_ORBIT.map((tool, index) => {
               const isHovered = hoveredTool === tool.name;
+              // Pair index for symmetrical bilateral emergence (top pair, mid-upper pair, mid-lower pair, bottom pair)
+              const pairIndex = index % 4;
 
               return (
                 <motion.div
@@ -281,10 +295,10 @@ export function ToolsSection() {
                   }
                   transition={{
                     type: "spring",
-                    stiffness: 85,
-                    damping: 12,
+                    stiffness: 80,
+                    damping: 13,
                     mass: 0.75,
-                    delay: 0.12 + index * 0.07, // Staggered radial emergence from center to orbit around the laptop!
+                    delay: 0.12 + pairIndex * 0.08, // Symmetrical bilateral explosion outward to left and right!
                   }}
                   onMouseEnter={() => setHoveredTool(tool.name)}
                   onMouseLeave={() => setHoveredTool(null)}
@@ -294,7 +308,7 @@ export function ToolsSection() {
                   className="absolute pointer-events-auto cursor-pointer"
                 >
                   <motion.div
-                    whileHover={{ y: -6, scale: 1.05 }}
+                    whileHover={{ scale: 1.06, y: -4 }}
                     whileTap={{ scale: 0.95 }}
                     className="flex items-center gap-3 px-4 py-2.5 rounded-2xl border-2 border-[#141416] shadow-[4px_4px_0_#141416] hover:shadow-[7px_7px_0_#e52424] hover:border-[#e52424] transition-all duration-200 select-none whitespace-nowrap"
                     style={{
@@ -325,7 +339,7 @@ export function ToolsSection() {
 
         </div>
 
-        {/* ── MOBILE VIEW (< md): CENTERED LAPTOP WITH ALL 8 TOOLS PROMINENTLY FLANKING IN FULL VIEW ── */}
+        {/* ── MOBILE VIEW (< md): CENTERED LAPTOP WITH LEFT & RIGHT SIDES IN FULL VIEW ── */}
         <div className="md:hidden flex flex-col items-center py-2">
           
           {/* Centered Compact 3D Laptop */}
@@ -364,7 +378,7 @@ export function ToolsSection() {
             <div className="w-[106%] -ml-[3%] h-3 bg-[#28282c] rounded-b-lg" />
           </motion.div>
 
-          {/* Clean 2-column mobile grid: 100% visible, zero obstruction, emerges with staggered springs */}
+          {/* Symmetrical 2-column mobile grid: Left Flank & Right Flank */}
           <div className="grid grid-cols-2 gap-2.5 w-full max-w-sm px-1">
             {TOOLS_ORBIT.map((tool, idx) => (
               <motion.div
@@ -379,7 +393,7 @@ export function ToolsSection() {
                   type: "spring",
                   stiffness: 90,
                   damping: 14,
-                  delay: 0.1 + idx * 0.05,
+                  delay: 0.08 + idx * 0.05,
                 }}
                 className="flex items-center gap-2 p-2 rounded-xl border-2 border-[#141416] shadow-[3px_3px_0_#141416] select-none"
                 style={{ backgroundColor: tool.bgTint }}
